@@ -47,8 +47,10 @@ public class DriveSystem_AUTO extends LinearOpMode {
         // 3. Run your robot loop
         while (opModeIsActive()) {
             // Robot code goes here
-
-
+            motorFrontRight.setPower(0.2);
+            motorFrontLeft.setPower(0.2);
+            motorBackRight.setPower(0.2);
+            motorBackLeft.setPower(0.2);
 
 
 
