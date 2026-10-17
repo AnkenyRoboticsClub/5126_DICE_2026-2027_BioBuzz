@@ -38,8 +38,8 @@ public class LaunchSystem_AUTO extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            motorNectarLauncher.setPower(1);
-            motorPollenLauncher.setPower(1);
+            motorNectarLauncher.setPower(0.2);
+            motorPollenLauncher.setPower(0.2);
 
             sleep(3000);
 
