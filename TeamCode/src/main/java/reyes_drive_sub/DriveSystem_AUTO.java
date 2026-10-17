@@ -38,7 +38,7 @@ public class DriveSystem_AUTO extends LinearOpMode {
         // Other code goes in here
         motorFrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE  );
+        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
