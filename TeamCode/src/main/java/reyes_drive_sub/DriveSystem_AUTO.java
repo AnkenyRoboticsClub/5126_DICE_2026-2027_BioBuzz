@@ -31,28 +31,42 @@ public class DriveSystem_AUTO extends LinearOpMode {
     @Override
     public void runOpMode() {
         // 2. Initialize hardware here
-        motorFrontRight = hardwareMap.get(DcMotor.class, "MFR");
-        motorFrontLeft = hardwareMap.get(DcMotor.class, "MFL");
-        motorBackRight = hardwareMap.get(DcMotor.class, "MBR");
-        motorBackLeft = hardwareMap.get(DcMotor.class, "MBL");
+        motorFrontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        motorFrontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        motorBackRight = hardwareMap.get(DcMotor.class, "backRight");
+        motorBackLeft = hardwareMap.get(DcMotor.class, "backLeft");
         // Other code goes in here
         motorFrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorFrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE  );
         motorBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         waitForStart();
 
+        // boolean is a true or false value
+        boolean isForward = true;
+
         // 3. Run your robot loop
         while (opModeIsActive()) {
+
+            // double is any decimal point number
+            double motorPower;
+
+            if (isForward)
+                motorPower = 0.2;
+            else
+                motorPower = -0.2;
+
             // Robot code goes here
-            motorFrontRight.setPower(0.2);
-            motorFrontLeft.setPower(0.2);
-            motorBackRight.setPower(0.2);
-            motorBackLeft.setPower(0.2);
+            motorFrontRight.setPower(motorPower);
+            motorFrontLeft.setPower(motorPower);
+            motorBackRight.setPower(motorPower);
+            motorBackLeft.setPower(motorPower);
 
+            sleep(3000);
 
+            isForward = !isForward; // Flip the value from true -> false (or from false -> true)
 
         }
     }
