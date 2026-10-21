@@ -37,10 +37,22 @@ public class LaunchSystem_TeleOP extends LinearOpMode {
 waitForStart();
 
 
+
         while (opModeIsActive()) {
 
-            MPL.setPower(gamepad2.left_trigger);
-            MNL.setPower(gamepad2.right_trigger);
+            float LeftLaunch = gamepad2.left_trigger = 1;
+
+            float RightLaunch = gamepad2.right_trigger = 1;
+
+            MPL.setPower(LeftLaunch);
+
+            MNL.setPower(RightLaunch);
+
+
+
+
+
+
 
         }
 
