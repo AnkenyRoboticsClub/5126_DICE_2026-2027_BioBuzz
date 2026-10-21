@@ -26,6 +26,10 @@ public class LaunchSystem_TeleOP extends LinearOpMode {
     DcMotor MPL;
     DcMotor MNL;
 
+    int LeftLaunch;
+
+    int RightLaunch;
+
     @Override
     public void runOpMode() {
 
@@ -40,18 +44,21 @@ waitForStart();
 
         while (opModeIsActive()) {
 
-            float LeftLaunch = gamepad2.left_trigger = 1;
+            if (gamepad2.right_trigger_pressed){
+                RightLaunch = 1;
+            }
 
-            float RightLaunch = gamepad2.right_trigger = 1;
+            if (gamepad2.left_trigger_pressed){
+                LeftLaunch = 1;
+            }
+
 
             MPL.setPower(LeftLaunch);
 
             MNL.setPower(RightLaunch);
 
-
-
-
-
+            telemetry.addData("MNL_POWER", MNL.getPower());
+            telemetry.update();
 
 
         }
