@@ -1,45 +1,33 @@
 package weihan_launcher_sub;
 
-import com.qualcomm.hardware.ams.AMSColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @Autonomous(name = "AUTO_LAUNCHERS", group = "PROTO")
 public class LaunchSystem_AUTO extends LinearOpMode {
 
-    DcMotor motorPollenLauncher;
-    DcMotor motorNectarLauncher;
+    DcMotor PL;
+    DcMotor NL;
 
     @Override
     public void runOpMode() {
 
-        motorPollenLauncher = hardwareMap.get(DcMotor.class, "pollenLaunch");
-        motorNectarLauncher = hardwareMap.get(DcMotor.class, "nectarLaunch");
+        PL = hardwareMap.get(DcMotor.class, "pollenLaunch");
+        NL = hardwareMap.get(DcMotor.class, "necterLaunch");
 
-        motorPollenLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorNectarLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
+        PL.setDirection(DcMotorSimple.Direction.FORWARD);
+        NL.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         waitForStart();
 
         while (opModeIsActive()) {
 
-            motorNectarLauncher.setPower(0.2);
-            motorPollenLauncher.setPower(0.2);
+            NL.setPower(0.2);
+            PL.setPower(0.2);
 
             sleep(3000);
 
