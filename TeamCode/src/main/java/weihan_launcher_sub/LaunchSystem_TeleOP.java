@@ -33,7 +33,7 @@ public class LaunchSystem_TeleOP extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        MPL = hardwareMap.get(DcMotor.class, "pollenLaunch");
+        //MPL = hardwareMap.get(DcMotor.class, "pollenLaunch");
         MNL = hardwareMap.get(DcMotor.class, "necterLaunch");
 
         MPL.setDirection(DcMotorSimple.Direction.FORWARD);
