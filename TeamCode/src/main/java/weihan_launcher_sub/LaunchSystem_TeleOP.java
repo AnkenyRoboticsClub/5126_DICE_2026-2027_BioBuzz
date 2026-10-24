@@ -33,8 +33,8 @@ public class LaunchSystem_TeleOP extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        MPL = hardwareMap.get(DcMotor.class, "MPL");
-        MNL = hardwareMap.get(DcMotor.class, "MNL");
+        MPL = hardwareMap.get(DcMotor.class, "pollenLaunch");
+        MNL = hardwareMap.get(DcMotor.class, "nectarLaunch");
 
         MPL.setDirection(DcMotorSimple.Direction.FORWARD);
         MNL.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -44,13 +44,13 @@ public class LaunchSystem_TeleOP extends LinearOpMode {
         while (opModeIsActive()) {
 
             if (gamepad2.leftBumperWasPressed()) {
-                LeftLaunch = Math.max(0.2, LeftLaunch - 0.2);
-                RightLaunch = Math.max(0.2, RightLaunch - 0.2);
+                LeftLaunch = Math.min(0.2, LeftLaunch - 0.02);
+                RightLaunch = Math.min(0.2, RightLaunch - 0.02);
             }
 
             if (gamepad2.rightBumperWasPressed()) {
-                LeftLaunch = Math.min(1.0, LeftLaunch + 0.2);
-                RightLaunch = Math.min(1.0, RightLaunch + 0.2);
+                LeftLaunch = Math.max(1.0, LeftLaunch + 0.02);
+                RightLaunch = Math.max(1.0, RightLaunch + 0.02);
             }
 
            if (gamepad2.left_trigger > .1) {
