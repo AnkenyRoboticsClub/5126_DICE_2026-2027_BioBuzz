@@ -24,7 +24,7 @@ public class IntakeSystem_AUTO extends LinearOpMode {
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
 
-        MIM = hardwareMap.get(DcMotor.class, "MIM");
+        MIM = hardwareMap.get(DcMotor.class, "motorIntake");
 
         MIM.setDirection(DcMotor.Direction.REVERSE);
 
