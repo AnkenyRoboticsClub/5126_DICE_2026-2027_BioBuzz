@@ -29,8 +29,8 @@ public class DriveSystem_TeleOp extends LinearOpMode {
 
         MFR.setDirection(DcMotorSimple.Direction.FORWARD);
         MFL.setDirection(DcMotorSimple.Direction.FORWARD);
-        MBR.setDirection(DcMotorSimple.Direction.REVERSE);
-        MBL.setDirection(DcMotorSimple.Direction.FORWARD);
+        MBR.setDirection(DcMotorSimple.Direction.FORWARD);
+        MBL.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         waitForStart();
