@@ -95,6 +95,8 @@ public class SwaraGate extends OpMode {
         gateopenonX();
         gateopenonB();
 
+        telemetry.update();
+
         // Example code, check if ready to fire
 //        boolean areWeReadyToFire = inFiringPosition();
 
@@ -169,6 +171,9 @@ public class SwaraGate extends OpMode {
     private void gateopenonB() {
         boolean isbuttonBpressed = gamepad1.b;
 
+        telemetry.addData("Is B Pressed", isbuttonBpressed);
+
+
         if (isbuttonBpressed) {
             // will need to test to figure out position
             necterGate.setPosition(1.0);
@@ -186,11 +191,13 @@ public class SwaraGate extends OpMode {
     {
         boolean isbuttonXpressed = gamepad1.x;
 
+        telemetry.addData("Is X Pressed", isbuttonXpressed);
+
         if (isbuttonXpressed) {
             // will need to test to figure out position
-            polynGate.setPosition(1.0);
-        } else {
             polynGate.setPosition(0.0);
+        } else {
+            polynGate.setPosition(1.0);
         }
 
 
