@@ -27,8 +27,8 @@ public class LaunchSystem_AUTO extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        motorPollenLauncher = hardwareMap.get(DcMotor.class, "MPL");
-        motorNectarLauncher = hardwareMap.get(DcMotor.class, "MNL");
+        motorPollenLauncher = hardwareMap.get(DcMotor.class, "pollenLaunch");
+        motorNectarLauncher = hardwareMap.get(DcMotor.class, "nectarLaunch");
 
         motorPollenLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
         motorNectarLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
