@@ -23,7 +23,8 @@ public class DriveSystem_TeleOp extends LinearOpMode{
     DcMotor MFR;
     DcMotor MFL;
     DcMotor MBR;
-    DcMotor MBL
+    DcMotor MBL;
+    double Left = gamepad1.right_stick_x;
 
     @Override
     public void runOpMode() {
@@ -43,18 +44,36 @@ public class DriveSystem_TeleOp extends LinearOpMode{
 
         while (opModeIsActive()) {
 
+            float Foreward = gamepad1.right_trigger;
+
             MFR.setPower(gamepad1.right_trigger);
             MFL.setPower(gamepad1.right_trigger);
             MBR.setPower(gamepad1.right_trigger);
             MBL.setPower(gamepad1.right_trigger);
 
-            gamepad1.left_trigger * -1
+            float Reverse = gamepad1.left_trigger * -1;
 
-            MFR.setPower(gamepad1.left_trigger);
-            MFL.setPower(gamepad1.left_trigger);
-            MBR.setPower(gamepad1.left_trigger);
-            MBL.setPower(gamepad1.left_trigger);
+            MFR.setPower(Reverse);
+            MFL.setPower(Reverse);
+            MBR.setPower(Reverse);
+            MBL.setPower(Reverse);
+
+            if (Left < 0) {
+                MFR.setPower(gamepad1.right_stick_x);
+                MBR.setPower(gamepad1.right_stick_x);
+
+            }
+
+            if (Left > 0) {
+                MFL.setPower(gamepad1.right_stick_x);
+                MBL.setPower(gamepad1.right_stick_x);
+
+            }
+
+
         }
+
+
 
     }
 
