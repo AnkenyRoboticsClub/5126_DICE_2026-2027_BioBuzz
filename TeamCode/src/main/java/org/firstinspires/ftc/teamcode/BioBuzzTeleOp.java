@@ -11,10 +11,15 @@ import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
-@TeleOp(name = "Robot: Field Relative Mecanum Drive", group = "Robot")
+@TeleOp(name = "RENAME", group = "RENAME")
 public class BioBuzzTeleOp extends OpMode {
+    // Robot Constants
+    private static final String MOTOR_NAME_NECTAR_LAUNCH = ""; // TODO: Add name
+    private static final String MOTOR_NAME_POLLEN_LAUNCH = ""; // TODO: Add name
+
     private ElapsedTime runtime = new ElapsedTime();
 
+    // Declare the robot's subsystems
     private Drive drive;
     private Gate gate;
     private Intake intake;
@@ -30,7 +35,7 @@ public class BioBuzzTeleOp extends OpMode {
         Drive drive = new Drive();
         Gate gate = new Gate();
         Intake intake = new Intake();
-        Launcher launcher = new Launcher();
+        Launcher launcher = new Launcher(MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
     }
 
     /*
@@ -54,6 +59,26 @@ public class BioBuzzTeleOp extends OpMode {
     @Override
     public void loop() {
 
+        telemetry.addData("Launch Power", launcher.getLaunchPower());
+
+        // Example code only - delete before running
+        // Increaes Launch speed
+        launcher.increaseLaunchPower();
+
+        // Decrease launch speed
+        launcher.decreateLaunchPower();
+
+        // Launch Nectar
+        launcher.nectarLaunch();
+
+        // Stop Nectar
+        launcher.stopNectarLaunch();
+
+        // Launch Pollen
+        launcher.pollenLaunch();
+
+        // Stop Pollen
+        launcher.stopPollenLaunch();
     }
 
     /*
