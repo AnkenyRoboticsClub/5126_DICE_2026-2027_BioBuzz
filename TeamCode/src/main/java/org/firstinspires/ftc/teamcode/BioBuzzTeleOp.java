@@ -17,6 +17,10 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String MOTOR_NAME_NECTAR_LAUNCH = ""; // TODO: Add name
     private static final String MOTOR_NAME_POLLEN_LAUNCH = ""; // TODO: Add name
 
+    private static final String SERVO_NAME_NECTAR_GATE = ""; // TODO: Add name
+
+    private static final String SERVO_NAME_POLLEN_GATE = ""; // TODO: Add name
+
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare the robot's subsystems
@@ -33,9 +37,62 @@ public class BioBuzzTeleOp extends OpMode {
     @Override
     public void init() {
         Drive drive = new Drive();
-        Gate gate = new Gate();
+        Gate gate = new Gate(SERVO_NAME_NECTAR_GATE, SERVO_NAME_POLLEN_GATE);
         Intake intake = new Intake();
         Launcher launcher = new Launcher(MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
+    }
+
+    private void delay(long millisecondsToDelay)
+    {
+        try {
+            Thread.sleep(millisecondsToDelay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e); // TODO: Normally you would handle this error - leave it for now
+        }
+    }
+
+    private void autoLaunchNectar()
+    {
+        // Turn on nectar launch motor
+        launcher.nectarLaunch();
+
+        // Wait 1 second (for launch motor to get to full power)
+        delay(1000);
+
+        // Open nectar gate
+        gate.openNectGate();
+
+        // Wait 4 seconds (for all nectar to finish launching)
+        delay(4000);
+
+        // Close gate
+        gate.closeNectGate();
+
+        // Turn off nectar launch motor
+        launcher.stopNectarLaunch();
+    }
+
+    private void autoLaunchPollen()
+    {
+        // Turn on nectar launch motor
+        launcher.nectarLaunch();
+
+        // Wait 1 second (for launch motor to get to full power)
+        delay(1000);
+
+        // Open nectar gate
+        gate.openPolyGate();
+
+        // Wait 4 seconds (for all nectar to finish launching)
+        delay(4000);
+
+        // Close gate
+        gate.closePolyGate();
+
+        // Turn off nectar launch motor
+        launcher.stopPollenLaunch();
+
+
     }
 
     /*
@@ -61,24 +118,34 @@ public class BioBuzzTeleOp extends OpMode {
 
         telemetry.addData("Launch Power", launcher.getLaunchPower());
 
-        // Example code only - delete before running
-        // Increaes Launch speed
-        launcher.increaseLaunchPower();
+        if (gamepad2.right_trigger > 0.5)
+        {
+            autoLaunchNectar();
+        }
 
-        // Decrease launch speed
-        launcher.decreateLaunchPower();
+        if (gamepad2.left_trigger > 0.5)
+        {
+            autoLaunchPollen();
+        }
 
-        // Launch Nectar
-        launcher.nectarLaunch();
-
-        // Stop Nectar
-        launcher.stopNectarLaunch();
-
-        // Launch Pollen
-        launcher.pollenLaunch();
-
-        // Stop Pollen
-        launcher.stopPollenLaunch();
+//        // Example code only - delete before running
+//        // Increaes Launch speed
+//        launcher.increaseLaunchPower();
+//
+//        // Decrease launch speed
+//        launcher.decreateLaunchPower();
+//
+//        // Launch Nectar
+//        launcher.nectarLaunch();
+//
+//        // Stop Nectar
+//        launcher.stopNectarLaunch();
+//
+//        // Launch Pollen
+//        launcher.pollenLaunch();
+//
+//        // Stop Pollen
+//        launcher.stopPollenLaunch();
     }
 
     /*

@@ -3,6 +3,7 @@ package swara_gate_sub;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -150,7 +151,7 @@ public class SwaraGate extends OpMode {
 
     private void controllerExample()
     {
-        boolean isButtonAPressed = gamepad1.a;
+        boolean RTP = gamepad2.right_trigger_pressed;
 
         if (isButtonAPressed) {
             // Do action 1
@@ -174,8 +175,9 @@ public class SwaraGate extends OpMode {
         telemetry.addData("Is B Pressed", isbuttonBpressed);
 
 
-        if (isbuttonBpressed) {
+        if (TRP) {
             // will need to test to figure out position
+            wait(1000);
             necterGate.setPosition(1.0);
         } else {
             necterGate.setPosition(0.0);
@@ -195,7 +197,9 @@ public class SwaraGate extends OpMode {
 
         if (isbuttonXpressed) {
             // will need to test to figure out position
+            wait(1000);
             polynGate.setPosition(0.0);
+
         } else {
             polynGate.setPosition(1.0);
         }
