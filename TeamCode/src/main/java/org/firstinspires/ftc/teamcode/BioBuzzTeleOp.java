@@ -61,6 +61,12 @@ public class BioBuzzTeleOp extends OpMode {
 
         telemetry.addData("Launch Power", launcher.getLaunchPower());
 
+        if (gamepad1.x)
+            intake.startIntake();
+
+        if (gamepad1.y)
+            intake.stopIntake();
+
         // Example code only - delete before running
         // Increaes Launch speed
         launcher.increaseLaunchPower();
