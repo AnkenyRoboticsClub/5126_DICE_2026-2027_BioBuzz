@@ -16,7 +16,7 @@ package teno_intake_sub;
 public class IntakeSystem_AUTO extends LinearOpMode {
     // Declare OpMode members.
     DcMotor MIM; // Main Intake Motor
-    double Power = 1;
+    double Power = 0.5;
 
     @Override
     public void runOpMode() {
@@ -27,6 +27,8 @@ public class IntakeSystem_AUTO extends LinearOpMode {
         MIM.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
+
+        waitForStart();
 
         MIM.setDirection(DcMotorSimple.Direction.FORWARD);
 
