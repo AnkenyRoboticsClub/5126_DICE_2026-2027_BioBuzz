@@ -22,6 +22,11 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String GATE_NAME_NECTAR = "necterGate";
     private static final String GATE_NAME_POLLEN = "pollenGate";
 
+    private static final String MOTOR_NAME_FRONT_LEFT = "";
+    private static final String MOTOR_NAME_FRONT_RIGHT = "";
+    private static final String MOTOR_NAME_BACK_LEFT = "";
+    private static final String MOTOR_NAME_BACK_RIGHT = "";
+
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare the robot's subsystems
@@ -37,7 +42,7 @@ public class BioBuzzTeleOp extends OpMode {
      */
     @Override
     public void init() {
-        Drive drive = new Drive();
+        Drive drive = new Drive(MOTOR_NAME_FRONT_RIGHT, MOTOR_NAME_FRONT_LEFT, MOTOR_NAME_BACK_RIGHT, MOTOR_NAME_BACK_LEFT);
         Gate gate = new Gate(GATE_NAME_NECTAR, GATE_NAME_POLLEN);
         Intake intake = new Intake(MOTOR_NAME_INTAKE);
         Launcher launcher = new Launcher(MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
