@@ -17,6 +17,8 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String MOTOR_NAME_NECTAR_LAUNCH = ""; // TODO: Add name
     private static final String MOTOR_NAME_POLLEN_LAUNCH = ""; // TODO: Add name
 
+    private static final String MOTOR_NAME_INTAKE = "motorIntake";
+
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare the robot's subsystems
@@ -34,7 +36,7 @@ public class BioBuzzTeleOp extends OpMode {
     public void init() {
         Drive drive = new Drive();
         Gate gate = new Gate();
-        Intake intake = new Intake();
+        Intake intake = new Intake(MOTOR_NAME_INTAKE);
         Launcher launcher = new Launcher(MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
     }
 
@@ -63,9 +65,12 @@ public class BioBuzzTeleOp extends OpMode {
 
         if (gamepad1.x)
             intake.startIntake();
+        //Starts the Intake when pressed
 
         if (gamepad1.y)
             intake.stopIntake();
+        //Stops the Intake when Pressed
+
 
         // Example code only - delete before running
         // Increaes Launch speed

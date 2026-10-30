@@ -3,30 +3,37 @@ package org.firstinspires.ftc.teamcode.subsystem;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Intake {
-
     private DcMotor intakeMotor;
      // Constructor
-    public Intake(String intakeMotorName) {
-        intakeMotor = hardwareMap.get(DcMotor.class, intakeMotorName);
 
+    public Intake(String motorIntake) {
+        intakeMotor = hardwareMap.get(DcMotor.class,"motorIntake");
+
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
 
     // Methods (what can this subsystem do)
 
-    public void startIntake() {
-
-    }
-
-    public void stopIntake() {
-
+    public void startIntake()
+    {
+        intakeMotor.setPower(1);
     }
 
 
+
+
+    public void stopIntake()
+    {
+        intakeMotor.setPower(0);
+    }
 
 }
+
+
 //@TeleOp(name = "Intake_System_Tele", group = "INTAKE TELE")
 //public class IntakeSystem_TeleOp extends OpMode {
 //    // Declare OpMode members.
