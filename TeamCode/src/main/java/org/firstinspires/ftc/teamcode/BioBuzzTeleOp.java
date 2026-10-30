@@ -17,9 +17,10 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String MOTOR_NAME_NECTAR_LAUNCH = ""; // TODO: Add name
     private static final String MOTOR_NAME_POLLEN_LAUNCH = ""; // TODO: Add name
 
-    private static final String SERVO_NAME_NECTAR_GATE = ""; // TODO: Add name
+    private static final String MOTOR_NAME_INTAKE = "motorIntake";
 
-    private static final String SERVO_NAME_POLLEN_GATE = ""; // TODO: Add name
+    private static final String GATE_NAME_NECTAR = "necterGate";
+    private static final String GATE_NAME_POLLEN = "pollenGate";
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -37,8 +38,8 @@ public class BioBuzzTeleOp extends OpMode {
     @Override
     public void init() {
         Drive drive = new Drive();
-        Gate gate = new Gate(SERVO_NAME_NECTAR_GATE, SERVO_NAME_POLLEN_GATE);
-        Intake intake = new Intake();
+        Gate gate = new Gate(GATE_NAME_NECTAR, GATE_NAME_POLLEN);
+        Intake intake = new Intake(MOTOR_NAME_INTAKE);
         Launcher launcher = new Launcher(MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
     }
 
