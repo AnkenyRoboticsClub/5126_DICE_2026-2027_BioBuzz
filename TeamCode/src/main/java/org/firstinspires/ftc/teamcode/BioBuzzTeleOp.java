@@ -19,6 +19,9 @@ public class BioBuzzTeleOp extends OpMode {
 
     private static final String MOTOR_NAME_INTAKE = "motorIntake";
 
+    private static final String GATE_NAME_NECTAR = "necterGate";
+    private static final String GATE_NAME_POLLEN = "pollenGate";
+
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare the robot's subsystems
@@ -35,7 +38,7 @@ public class BioBuzzTeleOp extends OpMode {
     @Override
     public void init() {
         Drive drive = new Drive();
-        Gate gate = new Gate();
+        Gate gate = new Gate(GATE_NAME_NECTAR, GATE_NAME_POLLEN);
         Intake intake = new Intake(MOTOR_NAME_INTAKE);
         Launcher launcher = new Launcher(MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
     }
@@ -65,31 +68,34 @@ public class BioBuzzTeleOp extends OpMode {
 
         if (gamepad1.x)
             intake.startIntake();
-        //Starts the Intake when pressed
-
-        if (gamepad1.y)
+        else
             intake.stopIntake();
+
+
         //Stops the Intake when Pressed
 
 
-        // Example code only - delete before running
-        // Increaes Launch speed
-        launcher.increaseLaunchPower();
 
-        // Decrease launch speed
-        launcher.decreateLaunchPower();
-
-        // Launch Nectar
-        launcher.nectarLaunch();
-
-        // Stop Nectar
-        launcher.stopNectarLaunch();
-
-        // Launch Pollen
-        launcher.pollenLaunch();
-
-        // Stop Pollen
-        launcher.stopPollenLaunch();
+//
+//
+//        // Example code only - delete before running
+//        // Increaes Launch speed
+//        launcher.increaseLaunchPower();
+//
+//        // Decrease launch speed
+//        launcher.decreateLaunchPower();
+//
+//        // Launch Nectar
+//        launcher.nectarLaunch();
+//
+//        // Stop Nectar
+//        launcher.stopNectarLaunch();
+//
+//        // Launch Pollen
+//        launcher.pollenLaunch();
+//
+//        // Stop Pollen
+//        launcher.stopPollenLaunch();
     }
 
     /*
