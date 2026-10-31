@@ -22,7 +22,10 @@ public class Intake {
         intakeMotor.setPower(1);
     }
 
-
+   public void outTake()
+   {
+       intakeMotor.setPower(-.5);
+   }
 
 
     public void stopIntake()
