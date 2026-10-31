@@ -19,7 +19,7 @@ public class BioBuzzTeleOp extends OpMode {
 
     private static final String MOTOR_NAME_INTAKE = "motorIntake";
 
-    private static final String GATE_NAME_NECTAR = "necterGate";
+    private static final String GATE_NAME_NECTAR = "nectarGate";
     private static final String GATE_NAME_POLLEN = "pollenGate";
 
     private static final String MOTOR_NAME_FRONT_LEFT = "frontLeft";
