@@ -32,6 +32,8 @@ public class AutoGate extends OpMode {
     private Intake intake;
     private Launcher launcher;
 
+    private boolean firstRun = true;
+
     /**
      * User-defined init method
      * <p>
@@ -179,6 +181,9 @@ public class AutoGate extends OpMode {
     @Override
     public void loop() {
 
+        if (!firstRun)
+            return;
+
         //delay 5 secs
         //open gate
         //leave it open until whole program is stopped
@@ -194,10 +199,26 @@ public class AutoGate extends OpMode {
 
 
 
-        while(true)
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+
+        long millisecondsToDelay = 1000;
+        boolean waiting = true;
+        while (waiting)
         {
-            // Done
+            long waitTime = millisecondsToDelay - (long)timer.milliseconds();
+
+
+            telemetry.addData("Wait time", waitTime);
+            telemetry.update();
+
+            drive.drive(0.2, 0, 0);
+
+            if (waitTime <= 0)
+                waiting = false;
         }
+
+        firstRun = false;
     }
 
     /*

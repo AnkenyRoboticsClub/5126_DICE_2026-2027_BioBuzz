@@ -28,10 +28,9 @@ public class Drive {
 
 
     }
-    public void drive(Gamepad gamepad1) {
-        double forward = gamepad1.right_stick_y * -1;
-        double strafe = gamepad1.left_stick_x;
-        double rotate = gamepad1.right_stick_x;
+
+    public void drive(double forward, double strafe, double rotate)
+    {
 
         // This calculates the power needed for each wheel based on the amount of forward,
         // strafe right, and rotate
@@ -50,5 +49,13 @@ public class Drive {
         motorFrontRight.setPower(maxSpeed * frontRightPower);
         motorBackLeft.setPower(maxSpeed * backLeftPower);
         motorBackRight.setPower(maxSpeed * backRightPower);
+    }
+
+    public void drive(Gamepad gamepad1) {
+        double forward = gamepad1.right_stick_y * -1;
+        double strafe = gamepad1.left_stick_x;
+        double rotate = gamepad1.right_stick_x;
+
+        drive(forward, strafe, rotate);
     }
 }
