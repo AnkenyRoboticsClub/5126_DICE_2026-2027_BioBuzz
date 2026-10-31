@@ -128,6 +128,11 @@ public class Launcher {
         motorPollenLauncher.setPower(launchPowerPollen);
     }
 
+    public void pollenLaunch(double launchPower)
+    {
+        motorPollenLauncher.setPower(launchPower);
+    }
+
     public void stopPollenLaunch()
     {
         motorPollenLauncher.setPower(0);
