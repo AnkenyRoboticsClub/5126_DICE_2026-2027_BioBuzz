@@ -47,8 +47,10 @@ public class AutoGate extends OpMode {
         launcher = new Launcher(hardwareMap, MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
     }
 
-    private void delay(long millisecondsToDelay)
+    private void delay(long millisecondsToDelay, String label)
     {
+
+
         ElapsedTime timer = new ElapsedTime();
         timer.reset();
 
@@ -57,14 +59,18 @@ public class AutoGate extends OpMode {
         {
             long waitTime = millisecondsToDelay - (long)timer.milliseconds();
 
-
+            telemetry.addData("Delay for", label);
             telemetry.addData("Wait time", waitTime);
             telemetry.update();
 
             if (waitTime <= 0)
                 waiting = false;
         }
+    }
 
+    private void delay(long millisecondsToDelay)
+    {
+        delay(millisecondsToDelay, "Default Delay");
     }
 
     private void autoLaunchNectar()
@@ -181,8 +187,12 @@ public class AutoGate extends OpMode {
     @Override
     public void loop() {
 
-        if (!firstRun)
+        if (!firstRun) {
+            drive.drive(0, 0.5, 0);
+
             return;
+        }
+
 
         //delay 5 secs
         //open gate
@@ -190,9 +200,9 @@ public class AutoGate extends OpMode {
 
         launcher.pollenLaunch(0.65);
 
-        delay(1500);
+        delay(1500, "Waiting to open gate");
         gate.openPolyGate();
-        delay(5000);
+        delay(5000, "Waiting to stop launch");
         launcher.stopPollenLaunch();
         gate.closePolyGate();
         telemetry.update();
@@ -202,7 +212,7 @@ public class AutoGate extends OpMode {
         ElapsedTime timer = new ElapsedTime();
         timer.reset();
 
-        long millisecondsToDelay = 1000;
+        long millisecondsToDelay = 750;
         boolean waiting = true;
         while (waiting)
         {
@@ -212,11 +222,13 @@ public class AutoGate extends OpMode {
             telemetry.addData("Wait time", waitTime);
             telemetry.update();
 
-            drive.drive(0.2, 0, 0);
+            drive.drive(-0.3, 0, 0);
 
             if (waitTime <= 0)
                 waiting = false;
         }
+
+        drive.drive(0, 0, 0);
 
         firstRun = false;
     }

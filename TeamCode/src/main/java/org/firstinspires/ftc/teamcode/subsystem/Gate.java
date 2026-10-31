@@ -63,12 +63,12 @@ public class Gate {
 
     public void openPolyGate() {
 
-        pollenGate.setPosition(.8);
+        pollenGate.setPosition(0);
     }
 
     public void closePolyGate() {
 
-        pollenGate.setPosition(0.0);
+        pollenGate.setPosition(0.8);
 
     }
 
