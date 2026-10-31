@@ -57,7 +57,7 @@ public class Gate {
     }
 
     public void closeNectGate() {
-        // CLose gate code goes here
+        // CLose gate code goes herea
         nectarGate.setPosition(1.0);
     }
 
