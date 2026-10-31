@@ -1,15 +1,14 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
     private DcMotor intakeMotor;
     // Constructor
 
-    public Intake(String motorIntake) {
+    public Intake(HardwareMap hardwareMap, String motorIntake) {
         intakeMotor = hardwareMap.get(DcMotor.class,"motorIntake");
 
         intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);

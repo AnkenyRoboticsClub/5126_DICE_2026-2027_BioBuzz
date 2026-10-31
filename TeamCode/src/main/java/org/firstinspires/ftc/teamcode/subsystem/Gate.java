@@ -1,16 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
-
-
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.util.Range;
 
 public class Gate {
 
@@ -19,37 +10,65 @@ public class Gate {
 
     // Servos
 
-    private Servo necterGate;
+    private Servo nectarGate;
 
-    private Servo polynGate;
+    boolean isNectarGateOpen;
+    boolean isPollenGateOpen;
+
+    private Servo ponGate;
 
     // Constructor (needs the name of the nectar and pollen gates)
-    public Gate(String nectarGateName, String pollenGateName) {
+    public Gate(HardwareMap hardwareMap, String nectarGateName, String pollenGateName) {
 
         // Initialize the servos
-        necterGate = hardwareMap.get(Servo.class, nectarGateName);
-        polynGate = hardwareMap.get(Servo.class, pollenGateName);
+        nectarGate = hardwareMap.get(Servo.class, nectarGateName);
+        ponGate = hardwareMap.get(Servo.class, pollenGateName);
 
+        isNectarGateOpen = false;
+        isPollenGateOpen = false;
+
+    }
+
+    public void toggleNectarGate() {
+        if (isNectarGateOpen) {
+            closeNectGate();
+            isNectarGateOpen = false;
+        }
+        else {
+            openNectGate();
+            isNectarGateOpen = true;
+        }
+    }
+
+    public void togglePollenGate() {
+        if (isPollenGateOpen) {
+            closePolyGate();
+            isPollenGateOpen = false;
+        }
+        else {
+            openPolyGate();
+            isPollenGateOpen = true;
+        }
     }
 
     public void openNectGate() {
         // Open gate code goes here
-        polynGate.setPosition(0.0);
+        ponGate.setPosition(0.0);
     }
 
     public void closeNectGate() {
         // CLose gate code goes here
-        polynGate.setPosition(1.0);
+        ponGate.setPosition(1.0);
     }
 
     public void openPolyGate() {
 
-        necterGate.setPosition(1.0);
+        nectarGate.setPosition(1.0);
     }
 
     public void closePolyGate() {
 
-        necterGate.setPosition(0.0);
+        nectarGate.setPosition(0.0);
 
     }
 

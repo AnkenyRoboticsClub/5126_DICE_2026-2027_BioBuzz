@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Launcher {
 
@@ -16,48 +14,108 @@ public class Launcher {
     private DcMotor motorNectarLauncher;
 
     // Default to launch at 70% power
-    private double launchPower = 0.7;
+    private double launchPowerNectar = 0.7;
+    private double launchPowerPollen = 0.7;
 
+    private long nextNectarUpdate;
+    private long nextPollenUpdate;
 
     // Create a constructor to initialize the launcher
-    public Launcher(String nectarLauchMotor, String pollenLaunchMotor)
+    public Launcher(HardwareMap hardwareMap, String nectarLauchMotor, String pollenLaunchMotor)
     {
         // Initialize the motors
-        motorNectarLauncher = hardwareMap.get(DcMotor.class, "necterLaunch");
-        motorPollenLauncher = hardwareMap.get(DcMotor.class, "pollenLaunch");
+        motorNectarLauncher = hardwareMap.get(DcMotor.class, nectarLauchMotor);
+        motorPollenLauncher = hardwareMap.get(DcMotor.class, pollenLaunchMotor);
 
         // Set the motor directions
         motorNectarLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
         motorPollenLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        nextNectarUpdate = System.currentTimeMillis();
+        nextPollenUpdate = System.currentTimeMillis();
     }
 
-    public double getLaunchPower()
+    public double getLaunchPowerNectar()
     {
-        return launchPower;
+        return launchPowerNectar;
     }
 
-    public double increaseLaunchPower()
+    public double getLaunchPowerPollen()
     {
+        return launchPowerPollen;
+    }
+
+    public double increaseNectarLaunchPower()
+    {
+        if (System.currentTimeMillis() < nextNectarUpdate)
+            return launchPowerNectar;
+
         // Increase the laucnh power by the default increment
-        launchPower = launchPower + LAUNCH_POWER_INCREMENT;
+        launchPowerNectar = launchPowerNectar + LAUNCH_POWER_INCREMENT;
 
         // Launch power cannot go over 1
-        if (launchPower > 1)
-            launchPower = 1;
+        if (launchPowerNectar > 1)
+            launchPowerNectar = 1;
 
-        return launchPower;
+        nextNectarUpdate = System.currentTimeMillis() + 1000; // 1 second delay
+
+        return launchPowerNectar;
     }
 
-    public double decreateLaunchPower()
+    public double decreaseNectarLaunchPower()
     {
+        if (System.currentTimeMillis() < nextNectarUpdate)
+            return launchPowerNectar;
 
+        // Increase the laucnh power by the default increment
+        launchPowerNectar = launchPowerNectar - LAUNCH_POWER_INCREMENT;
 
-        return -999; // TODO Update
+        // Launch power cannot go over 1
+        if (launchPowerNectar < 0)
+            launchPowerNectar = 0;
+
+        nextNectarUpdate = System.currentTimeMillis() + 1000; // 1 second delay
+
+        return launchPowerNectar;
+    }
+
+    public double increasePollenLaunchPower()
+    {
+        if (System.currentTimeMillis() < nextPollenUpdate)
+            return launchPowerPollen;
+
+        // Increase the laucnh power by the default increment
+        launchPowerPollen = launchPowerPollen + LAUNCH_POWER_INCREMENT;
+
+        // Launch power cannot go over 1
+        if (launchPowerPollen > 1)
+            launchPowerPollen = 1;
+
+        nextPollenUpdate = System.currentTimeMillis() + 1000; // 1 second delay
+
+        return launchPowerPollen;
+    }
+
+    public double decreasePollenLaunchPower()
+    {
+        if (System.currentTimeMillis() < nextPollenUpdate)
+            return launchPowerPollen;
+
+        // Increase the laucnh power by the default increment
+        launchPowerPollen = launchPowerPollen - LAUNCH_POWER_INCREMENT;
+
+        // Launch power cannot go below 0
+        if (launchPowerPollen < 0)
+            launchPowerPollen = 0;
+
+        nextPollenUpdate = System.currentTimeMillis() + 1000; // 1 second delay
+
+        return launchPowerPollen;
     }
 
     public void nectarLaunch()
     {
-        motorNectarLauncher.setPower(launchPower);
+        motorNectarLauncher.setPower(launchPowerNectar);
     }
 
     public void stopNectarLaunch()
@@ -67,7 +125,7 @@ public class Launcher {
 
     public void pollenLaunch()
     {
-        motorPollenLauncher.setPower(launchPower);
+        motorPollenLauncher.setPower(launchPowerPollen);
     }
 
     public void stopPollenLaunch()

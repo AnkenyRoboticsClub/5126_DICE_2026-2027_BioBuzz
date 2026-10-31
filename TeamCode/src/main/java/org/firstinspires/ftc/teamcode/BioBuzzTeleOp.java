@@ -11,21 +11,21 @@ import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
-@TeleOp(name = "RENAME", group = "RENAME")
+@TeleOp(name = "BioBuzz", group = "BioBuzz")
 public class BioBuzzTeleOp extends OpMode {
     // Robot Constants
-    private static final String MOTOR_NAME_NECTAR_LAUNCH = ""; // TODO: Add name
-    private static final String MOTOR_NAME_POLLEN_LAUNCH = ""; // TODO: Add name
+    private static final String MOTOR_NAME_NECTAR_LAUNCH = "nectarLaunch";
+    private static final String MOTOR_NAME_POLLEN_LAUNCH = "pollenLaunch";
 
     private static final String MOTOR_NAME_INTAKE = "motorIntake";
 
     private static final String GATE_NAME_NECTAR = "necterGate";
     private static final String GATE_NAME_POLLEN = "pollenGate";
 
-    private static final String MOTOR_NAME_FRONT_LEFT = "";
-    private static final String MOTOR_NAME_FRONT_RIGHT = "";
-    private static final String MOTOR_NAME_BACK_LEFT = "";
-    private static final String MOTOR_NAME_BACK_RIGHT = "";
+    private static final String MOTOR_NAME_FRONT_LEFT = "frontLeft";
+    private static final String MOTOR_NAME_FRONT_RIGHT = "frontRight";
+    private static final String MOTOR_NAME_BACK_LEFT = "backLeft";
+    private static final String MOTOR_NAME_BACK_RIGHT = "backRight";
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -42,10 +42,10 @@ public class BioBuzzTeleOp extends OpMode {
      */
     @Override
     public void init() {
-        Drive drive = new Drive(MOTOR_NAME_FRONT_RIGHT, MOTOR_NAME_FRONT_LEFT, MOTOR_NAME_BACK_RIGHT, MOTOR_NAME_BACK_LEFT);
-        Gate gate = new Gate(GATE_NAME_NECTAR, GATE_NAME_POLLEN);
-        Intake intake = new Intake(MOTOR_NAME_INTAKE);
-        Launcher launcher = new Launcher(MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
+        drive = new Drive(hardwareMap, MOTOR_NAME_FRONT_RIGHT, MOTOR_NAME_FRONT_LEFT, MOTOR_NAME_BACK_RIGHT, MOTOR_NAME_BACK_LEFT);
+        gate = new Gate(hardwareMap, GATE_NAME_NECTAR, GATE_NAME_POLLEN);
+        intake = new Intake(hardwareMap, MOTOR_NAME_INTAKE);
+        launcher = new Launcher(hardwareMap, MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
     }
 
     private void delay(long millisecondsToDelay)
@@ -78,7 +78,7 @@ public class BioBuzzTeleOp extends OpMode {
         launcher.stopNectarLaunch();
     }
 
-    private void autoLaunchPollen()
+    private void autoLaunchPollen( )
     {
         // Turn on nectar launch motor
         launcher.nectarLaunch();
@@ -116,42 +116,65 @@ public class BioBuzzTeleOp extends OpMode {
         runtime.reset();
     }
 
+    private void launchControl()
+    {
+        // Nectar Gate
+        if (gamepad2.right_bumper)
+            gate.toggleNectarGate();
+
+        if (gamepad2.left_bumper)
+            gate.togglePollenGate();
+
+        // You have to hold the trigger to launch nectar
+        if (gamepad2.right_trigger > 0.5)
+            launcher.nectarLaunch();
+        else
+            launcher.stopNectarLaunch();
+
+        // You have to hold the trigger to launch pollen
+        if (gamepad2.left_trigger > 0.5)
+            launcher.pollenLaunch();
+        else
+            launcher.stopPollenLaunch();
+
+        if (gamepad2.y)
+            launcher.increaseNectarLaunchPower();
+        if (gamepad2.b)
+            launcher.decreaseNectarLaunchPower();
+
+        if (gamepad2.x)
+            launcher.increasePollenLaunchPower();
+        if (gamepad2.a)
+            launcher.decreasePollenLaunchPower();
+
+        double nectarLaunchPower = launcher.getLaunchPowerNectar();
+        double pollenLaunchPower = launcher.getLaunchPowerPollen();
+
+        telemetry.addData("Nectar Launch Power", nectarLaunchPower);
+        telemetry.addData("Pollen Launch Power", pollenLaunchPower);
+
+
+    }
+
+    private void intakeControl()
+    {
+        if (gamepad1.a)
+            intake.startIntake();
+        else
+            intake.stopIntake();
+    }
+
     /*
      * Code to run REPEATEDLY after the driver hits START but before they hit STOP
      */
     @Override
     public void loop() {
 
-        telemetry.addData("Launch Power", launcher.getLaunchPower());
+        launchControl();
+        intakeControl();
+        drive.drive(gamepad1);
 
-        if (gamepad2.right_trigger > 0.5)
-        {
-            autoLaunchNectar();
-        }
-
-        if (gamepad2.left_trigger > 0.5)
-        {
-            autoLaunchPollen();
-        }
-
-//        // Example code only - delete before running
-//        // Increaes Launch speed
-//        launcher.increaseLaunchPower();
-//
-//        // Decrease launch speed
-//        launcher.decreateLaunchPower();
-//
-//        // Launch Nectar
-//        launcher.nectarLaunch();
-//
-//        // Stop Nectar
-//        launcher.stopNectarLaunch();
-//
-//        // Launch Pollen
-//        launcher.pollenLaunch();
-//
-//        // Stop Pollen
-//        launcher.stopPollenLaunch();
+        telemetry.update();
     }
 
     /*
