@@ -124,11 +124,16 @@ public class BioBuzzTeleOp extends OpMode {
     {
         // Nectar Gate
         if (gamepad2.right_bumper)
-            gate.toggleNectarGate();
+            gate.closeNectGate();
+
+        else
+            gate.openNectGate();
 
         if (gamepad2.left_bumper)
-            gate.togglePollenGate();
+            gate.closePolyGate();
 
+        else
+            gate.openPolyGate();
         // You have to hold the trigger to launch nectar
         if (gamepad2.right_trigger > 0.5)
             launcher.nectarLaunch();
@@ -162,9 +167,15 @@ public class BioBuzzTeleOp extends OpMode {
 
     private void intakeControl()
     {
-        if (gamepad1.a)
+        if (gamepad1.right_bumper)
             intake.startIntake();
-        else
+        else if (gamepad1.left_bumper)
+        {
+            intake.outTake();
+        }
+
+
+            else
             intake.stopIntake();
     }
 

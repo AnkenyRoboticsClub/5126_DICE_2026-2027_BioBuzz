@@ -57,18 +57,18 @@ public class Gate {
     }
 
     public void closeNectGate() {
-        // CLose gate code goes here
-        nectarGate.setPosition(1.0);
+        // CLose gate code goes herea
+        nectarGate.setPosition(.8);
     }
 
     public void openPolyGate() {
 
-        pollenGate.setPosition(0.0);
+        pollenGate.setPosition(.8);
     }
 
     public void closePolyGate() {
 
-        pollenGate.setPosition(1.0);
+        pollenGate.setPosition(0.0);
 
     }
 
