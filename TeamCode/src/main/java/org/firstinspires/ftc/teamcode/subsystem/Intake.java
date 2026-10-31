@@ -12,6 +12,10 @@ public class Intake {
         intakeMotor = hardwareMap.get(DcMotor.class,"motorIntake");
 
         intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        intakeMotor.setPower(0);
+
+
     }
 
 
@@ -19,7 +23,7 @@ public class Intake {
 
     public void startIntake()
     {
-        intakeMotor.setPower(1);
+        intakeMotor.setPower(0.7);
     }
 
    public void outTake()

@@ -13,6 +13,7 @@ public class Drive {
     private DcMotor motorBackRight;
     private DcMotor motorBackLeft;
 
+    // This is the constructor - it initializes the drive subsystem
     public Drive(HardwareMap hardwareMap, String motorFrontRightName, String motorFrontLeftName, String motorBackRightName, String motorBackLeftName)
     {
 
@@ -26,6 +27,11 @@ public class Drive {
         motorBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        // Set initial power to 0 for all motors
+        motorFrontRight.setPower(0);
+        motorFrontLeft.setPower(0);
+        motorBackRight.setPower(0);
+        motorBackLeft.setPower(0);
 
     }
 

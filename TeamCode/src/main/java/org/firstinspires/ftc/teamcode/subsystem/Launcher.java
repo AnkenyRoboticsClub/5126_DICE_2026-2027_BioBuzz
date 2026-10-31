@@ -33,6 +33,9 @@ public class Launcher {
 
         nextNectarUpdate = System.currentTimeMillis();
         nextPollenUpdate = System.currentTimeMillis();
+
+        motorNectarLauncher.setPower(0);
+        motorPollenLauncher.setPower(0);
     }
 
     public double getLaunchPowerNectar()
