@@ -50,11 +50,15 @@ public class BioBuzzTeleOp extends OpMode {
 
     private void delay(long millisecondsToDelay)
     {
-        try {
-            Thread.sleep(millisecondsToDelay);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e); // TODO: Normally you would handle this error - leave it for now
+        ElapsedTime timer = new ElapsedTime();
+
+        boolean waiting = true;
+        while (waiting)
+        {
+            if (timer.milliseconds() > millisecondsToDelay)
+                waiting = false;
         }
+
     }
 
     private void autoLaunchNectar()
