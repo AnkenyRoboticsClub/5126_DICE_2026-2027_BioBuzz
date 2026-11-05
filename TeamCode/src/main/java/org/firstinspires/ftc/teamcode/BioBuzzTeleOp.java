@@ -156,8 +156,8 @@ public class BioBuzzTeleOp extends OpMode {
         if (gamepad2.a)
             launcher.decreasePollenLaunchPower();
 
-        double nectarLaunchPower = launcher.getLaunchPowerNectar();
-        double pollenLaunchPower = launcher.getLaunchPowerPollen();
+        int nectarLaunchPower = launcher.getNectarLaunchVelocity();
+        int pollenLaunchPower = launcher.getPollenLaunchVelocity();
 
         telemetry.addData("Nectar Launch Power", nectarLaunchPower);
         telemetry.addData("Pollen Launch Power", pollenLaunchPower);
