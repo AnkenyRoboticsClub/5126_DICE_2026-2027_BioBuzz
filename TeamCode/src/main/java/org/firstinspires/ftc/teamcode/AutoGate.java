@@ -164,8 +164,8 @@ public class AutoGate extends OpMode {
         if (gamepad2.a)
             launcher.decreasePollenLaunchPower();
 
-        double nectarLaunchPower = launcher.getLaunchPowerNectar();
-        double pollenLaunchPower = launcher.getLaunchPowerPollen();
+        double nectarLaunchPower = launcher.getNectarLaunchVelocity();
+        double pollenLaunchPower = launcher.getPollenLaunchVelocity();
 
         telemetry.addData("Nectar Launch Power", nectarLaunchPower);
         telemetry.addData("Pollen Launch Power", pollenLaunchPower);
@@ -198,7 +198,7 @@ public class AutoGate extends OpMode {
         //open gate
         //leave it open until whole program is stopped
 
-        launcher.pollenLaunch(0.65);
+        launcher.pollenLaunch(1820);
 
         delay(1500, "Waiting to open gate");
         gate.openPolyGate();

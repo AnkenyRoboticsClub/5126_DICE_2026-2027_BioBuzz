@@ -1,21 +1,22 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Launcher {
 
     // Constants
-    private final double LAUNCH_POWER_INCREMENT = 0.1;
+    private final int LAUNCH_POWER_INCREMENT = 200;
 
     // The Launcher uses two DC Motors
-    private DcMotor motorPollenLauncher;
-    private DcMotor motorNectarLauncher;
+    private final DcMotorEx motorPollenLauncher;
+    private final DcMotorEx motorNectarLauncher;
 
     // Default to launch at 70% power
-    private double launchPowerNectar = 0.7;
-    private double launchPowerPollen = 0.7;
+    private int launchPowerNectar = 2000;
+    private int launchPowerPollen = 2000;
 
     private long nextNectarUpdate;
     private long nextPollenUpdate;
@@ -24,35 +25,35 @@ public class Launcher {
     public Launcher(HardwareMap hardwareMap, String nectarLauchMotor, String pollenLaunchMotor)
     {
         // Initialize the motors
-        motorNectarLauncher = hardwareMap.get(DcMotor.class, nectarLauchMotor);
-        motorPollenLauncher = hardwareMap.get(DcMotor.class, pollenLaunchMotor);
+        motorNectarLauncher = hardwareMap.get(DcMotorEx.class, nectarLauchMotor);
+        motorPollenLauncher = hardwareMap.get(DcMotorEx.class, pollenLaunchMotor);
 
         // Set the motor directions
         motorNectarLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
         motorPollenLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Turn on motor encoders
-        motorNectarLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorPollenLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorNectarLauncher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        motorPollenLauncher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         nextNectarUpdate = System.currentTimeMillis();
         nextPollenUpdate = System.currentTimeMillis();
 
-        motorNectarLauncher.setPower(0);
-        motorPollenLauncher.setPower(0);
+        motorNectarLauncher.setVelocity(0);
+        motorPollenLauncher.setVelocity(0);
     }
 
-    public double getLaunchPowerNectar()
+    public int getNectarLaunchVelocity()
     {
         return launchPowerNectar;
     }
 
-    public double getLaunchPowerPollen()
+    public int getPollenLaunchVelocity()
     {
         return launchPowerPollen;
     }
 
-    public double increaseNectarLaunchPower()
+    public int increaseNectarLaunchPower()
     {
         if (System.currentTimeMillis() < nextNectarUpdate)
             return launchPowerNectar;
@@ -60,16 +61,16 @@ public class Launcher {
         // Increase the laucnh power by the default increment
         launchPowerNectar = launchPowerNectar + LAUNCH_POWER_INCREMENT;
 
-        // Launch power cannot go over 1
-        if (launchPowerNectar > 1)
-            launchPowerNectar = 1;
+        // Launch power cannot go over 1 / 2800 is the maximun tick
+        if (launchPowerNectar > 2800)
+            launchPowerNectar = 2800;
 
         nextNectarUpdate = System.currentTimeMillis() + 1000; // 1 second delay
 
         return launchPowerNectar;
     }
 
-    public double decreaseNectarLaunchPower()
+    public int decreaseNectarLaunchPower()
     {
         if (System.currentTimeMillis() < nextNectarUpdate)
             return launchPowerNectar;
@@ -86,7 +87,7 @@ public class Launcher {
         return launchPowerNectar;
     }
 
-    public double increasePollenLaunchPower()
+    public int increasePollenLaunchPower()
     {
         if (System.currentTimeMillis() < nextPollenUpdate)
             return launchPowerPollen;
@@ -95,15 +96,15 @@ public class Launcher {
         launchPowerPollen = launchPowerPollen + LAUNCH_POWER_INCREMENT;
 
         // Launch power cannot go over 1
-        if (launchPowerPollen > 1)
-            launchPowerPollen = 1;
+        if (launchPowerPollen > 2800)
+            launchPowerPollen = 2800;
 
         nextPollenUpdate = System.currentTimeMillis() + 1000; // 1 second delay
 
         return launchPowerPollen;
     }
 
-    public double decreasePollenLaunchPower()
+    public int decreasePollenLaunchPower()
     {
         if (System.currentTimeMillis() < nextPollenUpdate)
             return launchPowerPollen;
@@ -117,32 +118,32 @@ public class Launcher {
 
         nextPollenUpdate = System.currentTimeMillis() + 1000; // 1 second delay
 
-        return launchPowerPollen;
+            return launchPowerPollen;
     }
 
     public void nectarLaunch()
     {
-        motorNectarLauncher.setPower(launchPowerNectar);
+        motorNectarLauncher.setVelocity(launchPowerNectar);
     }
 
     public void stopNectarLaunch()
     {
-        motorNectarLauncher.setPower(0);
+            motorNectarLauncher.setVelocity(0);
     }
 
     public void pollenLaunch()
     {
-        motorPollenLauncher.setPower(launchPowerPollen);
+        motorPollenLauncher.setVelocity(launchPowerPollen);
     }
 
-    public void pollenLaunch(double launchPower)
+    public void pollenLaunch(int launchPower)
     {
-        motorPollenLauncher.setPower(launchPower);
+        motorPollenLauncher.setVelocity(launchPower);
     }
 
     public void stopPollenLaunch()
     {
-        motorPollenLauncher.setPower(0);
+        motorPollenLauncher.setVelocity(0);
     }
 
 
