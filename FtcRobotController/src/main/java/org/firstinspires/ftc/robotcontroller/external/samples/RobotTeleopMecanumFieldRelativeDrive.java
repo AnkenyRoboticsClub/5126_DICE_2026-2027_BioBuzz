@@ -28,11 +28,15 @@
  */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.*;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -53,11 +57,32 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp(name = "Robot: Field Relative Mecanum Drive", group = "Robot")
 @Disabled
 public class RobotTeleopMecanumFieldRelativeDrive extends OpMode {
+    enum DriveMode {
+        FIELD_CENTRIC("Field Centric"),
+        ROBOT_CENTRIC("Robot Centric");
+
+        private String driveModeName;
+        DriveMode(String driveMode)
+        {
+            this.driveModeName = driveMode;
+        }
+
+        public String getDriveModeName()
+        {
+            return driveModeName;
+        }
+    }
+
+
+
     // This declares the four motors needed
     DcMotor frontLeftDrive;
     DcMotor frontRightDrive;
     DcMotor backLeftDrive;
     DcMotor backRightDrive;
+
+    DcMotorEx test = null;
+    CRServo testTwo = null;
 
     // This declares the IMU needed to get the current direction the robot is facing
     IMU imu;
@@ -68,6 +93,10 @@ public class RobotTeleopMecanumFieldRelativeDrive extends OpMode {
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
+
+        DriveMode driveMode = DriveMode.FIELD_CENTRIC;
+        telemetry.addData("Drive Mode", driveMode.getDriveModeName());
+
 
         // We set the left motors in reverse which is needed for drive trains where the left
         // motors are opposite to the right ones.
@@ -83,10 +112,10 @@ public class RobotTeleopMecanumFieldRelativeDrive extends OpMode {
 
         imu = hardwareMap.get(IMU.class, "imu");
         // This needs to be changed to match the orientation on your robot
-        RevHubOrientationOnRobot.LogoFacingDirection logoDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.UP;
-        RevHubOrientationOnRobot.UsbFacingDirection usbDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+        LogoFacingDirection logoDirection =
+                LogoFacingDirection.UP;
+        UsbFacingDirection usbDirection =
+                UsbFacingDirection.FORWARD;
 
         RevHubOrientationOnRobot orientationOnRobot = new
                 RevHubOrientationOnRobot(logoDirection, usbDirection);
