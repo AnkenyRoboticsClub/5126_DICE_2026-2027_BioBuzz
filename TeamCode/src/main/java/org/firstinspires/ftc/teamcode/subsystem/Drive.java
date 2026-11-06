@@ -27,6 +27,7 @@ public class Drive {
         motorBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
         // Set initial power to 0 for all motors
         motorFrontRight.setPower(0);
         motorFrontLeft.setPower(0);

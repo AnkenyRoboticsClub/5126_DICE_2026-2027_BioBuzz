@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
-@TeleOp(name = "BioBuzz", group = "BioBuzz")
+@TeleOp(name = "BioBuzz v2", group = "BioBuzz")
 public class BioBuzzTeleOp extends OpMode {
     // Robot Constants
     private static final String MOTOR_NAME_NECTAR_LAUNCH = "nectarLaunch";
@@ -125,15 +125,14 @@ public class BioBuzzTeleOp extends OpMode {
         // Nectar Gate
         if (gamepad2.right_bumper)
             gate.closeNectGate();
-
         else
             gate.openNectGate();
 
         if (gamepad2.left_bumper)
             gate.closePolyGate();
-
         else
             gate.openPolyGate();
+
         // You have to hold the trigger to launch nectar
         if (gamepad2.right_trigger > 0.5)
             launcher.nectarLaunch();
@@ -188,6 +187,11 @@ public class BioBuzzTeleOp extends OpMode {
         launchControl();
         intakeControl();
         drive.drive(gamepad1);
+
+        telemetry.addData("Is Nectar Gate Open", gate.isNectarGateOpen());
+        telemetry.addData("Nectar Gate Position", gate.getNectarGatePosition());
+        telemetry.addData("Is Pollen Gate Open", gate.isPollenGateOpen());
+        telemetry.addData("Pollen Gate Position", gate.getPollenGatePosition());
 
         telemetry.update();
     }

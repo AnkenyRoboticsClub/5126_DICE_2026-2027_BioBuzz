@@ -3,19 +3,26 @@ package org.firstinspires.ftc.teamcode.subsystem;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class Gate {
 
-    // Motors
-    // None
+    private static final double POLLEN_GATE_CLOSED = 0;
+    private static final double POLLEN_GATE_OPEN = 0.35;
+    private static final double NECTAR_GATE_CLOSED = 0.35;
+    private static final double NECTAR_GATE_OPEN = 0;
 
-    // Servos
 
     private Servo nectarGate;
 
     boolean isNectarGateOpen;
     boolean isPollenGateOpen;
 
+    double currentNectarPosition;
+    double currentPollenPosition;
+
     private Servo pollenGate;
+
 
     // Constructor (needs the name of the nectar and pollen gates)
     public Gate(HardwareMap hardwareMap, String nectarGateName, String pollenGateName) {
@@ -24,52 +31,79 @@ public class Gate {
         nectarGate = hardwareMap.get(Servo.class, nectarGateName);
         pollenGate = hardwareMap.get(Servo.class, pollenGateName);
 
-        isNectarGateOpen = false;
-        isPollenGateOpen = false;
+        closeNectGate();
+        closePolyGate();
+
+        currentNectarPosition = 0;
+        currentPollenPosition = 0;
 
     }
 
     public void toggleNectarGate() {
         if (isNectarGateOpen) {
             closeNectGate();
-            isNectarGateOpen = false;
         }
         else {
             openNectGate();
-            isNectarGateOpen = true;
         }
     }
 
     public void togglePollenGate() {
         if (isPollenGateOpen) {
             closePolyGate();
-            isPollenGateOpen = false;
         }
         else {
             openPolyGate();
-            isPollenGateOpen = true;
         }
+
+    }
+
+    public boolean isPollenGateOpen()
+    {
+        return isPollenGateOpen;
+    }
+
+    public boolean isNectarGateOpen()
+    {
+        return isNectarGateOpen;
     }
 
     public void openNectGate() {
         // Open gate code goes here
-        nectarGate.setPosition(0.0);
+        nectarGate.setPosition(NECTAR_GATE_OPEN);
+        currentNectarPosition = NECTAR_GATE_OPEN;
+        isNectarGateOpen = true;
     }
 
     public void closeNectGate() {
         // CLose gate code goes herea
-        nectarGate.setPosition(.8);
+        nectarGate.setPosition(NECTAR_GATE_CLOSED);
+        currentNectarPosition = NECTAR_GATE_CLOSED;
+        isNectarGateOpen = false;
     }
 
     public void openPolyGate() {
 
-        pollenGate.setPosition(0);
+        pollenGate.setPosition(POLLEN_GATE_OPEN);
+        currentPollenPosition = POLLEN_GATE_OPEN;
+        isPollenGateOpen = true;
     }
 
     public void closePolyGate() {
 
-        pollenGate.setPosition(0.8);
+        pollenGate.setPosition(POLLEN_GATE_CLOSED);
+        currentPollenPosition = POLLEN_GATE_CLOSED;
+        isPollenGateOpen = false;
+    }
 
+    public double getPollenGatePosition()
+    {
+        return currentPollenPosition;
+    }
+
+    public double getNectarGatePosition()
+    {
+        return currentNectarPosition;
     }
 
 }
