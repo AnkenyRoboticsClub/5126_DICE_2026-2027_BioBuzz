@@ -122,6 +122,14 @@ public class BioBuzzTeleOp extends OpMode {
 
     private void launchControl()
     {
+        boolean isLaunchPower = launcher.isLaunchPower();
+        telemetry.addData("Is Launch Power", isLaunchPower);
+        telemetry.addData("Nectar Velocity", launcher.getNectarVelocity());
+        telemetry.addData("Pollen Velocity", launcher.getPollenVelocity());
+
+        if (gamepad2.dpad_up)
+            launcher.togglePowerOrVelocity();
+
         // Nectar Gate
         if (gamepad2.right_bumper)
             gate.closeNectGate();
