@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
 public class Launcher {
 
@@ -39,6 +40,8 @@ public class Launcher {
         // Set the motor directions
         motorNectarLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
         motorPollenLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
 
         //Set the motors to run in Encoders
         motorNectarLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

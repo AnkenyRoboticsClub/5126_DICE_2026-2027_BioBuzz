@@ -46,6 +46,10 @@ public class BioBuzzAuto extends OpMode {
         intake = new Intake(hardwareMap, MOTOR_NAME_INTAKE);
         launcher = new Launcher(hardwareMap, MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
 
+
+        gate.openPolyGate();
+        gate.openNectGate();
+
     }
 
 
@@ -81,7 +85,7 @@ public class BioBuzzAuto extends OpMode {
     public void loop() {
 
         if (!firstRun) {
-            drive.drive(0, 0.5, 0);
+            drive.drive(0, 0.35, 0);
 
             return;
         }
@@ -94,22 +98,18 @@ public class BioBuzzAuto extends OpMode {
         //open gate
         //leave it open until whole program is stopped
 
-        launcher.pollenLaunch(.65);
+        launcher.pollenLaunch(.55);
 
         delay(2000, "Waiting to open gate");
-        gate.openPolyGate();
+        gate.closePolyGate();
         delay(5000, "Waiting to stop launch");
         launcher.stopPollenLaunch();
-        gate.closePolyGate();
-        drive.drive(.3,0,0);
-        delay(1500);
-        drive.drive(0,-.5,0);
+        gate.openPolyGate();
+        drive.drive(-.25,0,0);
         delay(1000);
-        drive.drive(1,0,0);
-        delay(1500);
-        drive.drive(0,-.5,0);
-        delay(800);
-        drive.drive(0,0,0);
+        drive.drive(0,0,.35);
+        delay(1000);
+        drive.drive(0,0.35,0);
         telemetry.update();
 
 

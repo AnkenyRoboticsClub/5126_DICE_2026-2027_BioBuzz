@@ -32,7 +32,7 @@ public class LaunchEncoder extends LinearOpMode {
 
         waitForStart();
 
-        long updateDelay = 2000; // 2000 = 2 seconds
+        long updateDelay = 2000; // 2000 = 2 seconds                                                
         long nextPowerUpdate = System.currentTimeMillis();
 
 
