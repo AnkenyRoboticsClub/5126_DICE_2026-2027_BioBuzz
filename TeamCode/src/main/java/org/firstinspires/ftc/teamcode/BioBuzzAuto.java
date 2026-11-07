@@ -100,7 +100,7 @@ public class BioBuzzAuto extends OpMode {
 
         launcher.pollenLaunch(.55);
 
-        delay(2000, "Waiting to open gate");
+        delay(2500, "Waiting to open gate");
         gate.closePolyGate();
         delay(5000, "Waiting to stop launch");
         launcher.stopPollenLaunch();

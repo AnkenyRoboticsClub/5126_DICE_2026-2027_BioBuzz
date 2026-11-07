@@ -17,8 +17,8 @@ public class Launcher {
     private DcMotorEx motorNectarLauncher;
 
     // Default to launch at 70% power
-    private double launchPowerNectar = 0.7;
-    private double launchPowerPollen = 0.7;
+    private double launchPowerNectar = 0.5;
+    private double launchPowerPollen = 0.525;
 
     // Default Launch velocity
     private double launchVelocityNectar = 1200;
@@ -28,6 +28,7 @@ public class Launcher {
     private long nextPollenUpdate;
     private long nextToggleUpdate;
 
+    boolean alwaysLaunchPower = true;
     private boolean isLaunchPower = true;
 
     // Create a constructor to initialize the launcher
@@ -44,8 +45,8 @@ public class Launcher {
 
 
         //Set the motors to run in Encoders
-        motorNectarLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorPollenLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        motorNectarLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        motorPollenLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         nextNectarUpdate = System.currentTimeMillis();
@@ -58,6 +59,10 @@ public class Launcher {
 
     public void togglePowerOrVelocity()
     {
+        if (alwaysLaunchPower)
+            return;
+
+
         if (System.currentTimeMillis() < nextToggleUpdate)
             return;
 
@@ -159,7 +164,8 @@ public class Launcher {
             motorNectarLauncher.setPower(launchPowerNectar);
         else {
             // New velocity code
-            motorNectarLauncher.setVelocity(launchVelocityNectar);
+//            motorNectarLauncher.setVelocity(launchVelocityNectar);
+            motorNectarLauncher.setPower(launchPowerNectar);
         }
     }
 
