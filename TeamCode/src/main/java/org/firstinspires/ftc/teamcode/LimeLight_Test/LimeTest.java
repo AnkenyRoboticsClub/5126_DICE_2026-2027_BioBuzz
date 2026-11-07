@@ -48,10 +48,11 @@ public class LimeTest extends OpMode {
         LLResult llResult = limeCam.getLatestResult();
         if (llResult != null && llResult.isValid()) {
             Pose3D botPose = llResult.getBotpose_MT2();
-            telemetry.addData("Tx", llResult.getTx());
-            telemetry.addData("Ty", llResult.getTy());
-            telemetry.addData("Ta", llResult.getTa());
-
+            telemetry.addData("Target X", llResult.getTx());
+            telemetry.addData("Target Y", llResult.getTy());
+            telemetry.addData("Target Area", llResult.getTa());
+            telemetry.addData("BotePose", botPose.toString());
+            telemetry.addData("Yaw", botPose.getOrientation().getYaw());
 
         }
         else {
