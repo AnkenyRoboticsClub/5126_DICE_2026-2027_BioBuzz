@@ -40,6 +40,11 @@ public class Launcher {
         motorNectarLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
         motorPollenLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //Set the motors to run in Encoders
+        motorNectarLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorPollenLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         nextNectarUpdate = System.currentTimeMillis();
         nextPollenUpdate = System.currentTimeMillis();
         nextToggleUpdate = System.currentTimeMillis();
