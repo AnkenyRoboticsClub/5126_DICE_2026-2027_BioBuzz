@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Launcher {
 
     // Constants
-    private static final double LAUNCH_POWER_INCREMENT = 0.1;
-    private static final double LAUNCH_VELOCITY_INCREMENT = 50;
+    private static final double LAUNCH_POWER_INCREMENT = 0.25;
+    private static final double LAUNCH_VELOCITY_INCREMENT = 25;
 
     // The Launcher uses two DC Motors
     private DcMotorEx motorPollenLauncher;
@@ -197,10 +197,16 @@ public class Launcher {
         motorPollenLauncher.setPower(0);
     }
 
-
+//TODO Update the both launchers later
     public void startBothLauchers()
     {
         nectarLaunch();
         pollenLaunch();
     }
+
+    private void delay(long millisecondsToDelay)
+    {
+        delay(millisecondsToDelay);
+    }
+
 }

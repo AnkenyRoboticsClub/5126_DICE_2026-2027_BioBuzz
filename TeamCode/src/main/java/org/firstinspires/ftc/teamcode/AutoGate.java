@@ -194,17 +194,27 @@ public class AutoGate extends OpMode {
         }
 
 
+
+
+
         //delay 5 secs
         //open gate
         //leave it open until whole program is stopped
 
-        launcher.pollenLaunch(0.65);
+        launcher.pollenLaunch(1200);
 
-        delay(1500, "Waiting to open gate");
+        delay(2000, "Waiting to open gate");
         gate.openPolyGate();
         delay(5000, "Waiting to stop launch");
         launcher.stopPollenLaunch();
         gate.closePolyGate();
+        drive.drive(.5,0,0);
+        delay(1500);
+        drive.drive(.3,0,0);
+        delay(800);
+        drive.drive(0,.2,0);
+        delay(800);
+        drive.drive(0,0,0);
         telemetry.update();
 
 
