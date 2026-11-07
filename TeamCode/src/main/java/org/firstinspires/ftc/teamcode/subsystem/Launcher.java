@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Launcher {
 
     // Constants
-    private static final double LAUNCH_POWER_INCREMENT = 0.25;
+    private static final double LAUNCH_POWER_INCREMENT = 0.025;
     private static final double LAUNCH_VELOCITY_INCREMENT = 25;
 
     // The Launcher uses two DC Motors
