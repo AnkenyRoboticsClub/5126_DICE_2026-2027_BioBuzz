@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 public class Launcher {
 
@@ -18,18 +19,26 @@ public class Launcher {
 
     // Default to launch at 70% power
     private double launchPowerNectar = 0.5;
-    private double launchPowerPollen = 0.525;
+    private double launchPowerPollen = 1.0;
 
     // Default Launch velocity
     private double launchVelocityNectar = 1200;
-    private double launchVelocityPollen = 1200;
+    private double launchVelocityPollen = 10000;
 
     private long nextNectarUpdate;
     private long nextPollenUpdate;
     private long nextToggleUpdate;
 
-    boolean alwaysLaunchPower = true;
+
     private boolean isLaunchPower = true;
+
+
+    private double motorCPM = 28;
+
+    private double p, i, d, f;
+
+
+
 
     // Create a constructor to initialize the launcher
     public Launcher(HardwareMap hardwareMap, String nectarLauchMotor, String pollenLaunchMotor)
@@ -41,6 +50,13 @@ public class Launcher {
         // Set the motor directions
         motorNectarLauncher.setDirection(DcMotorSimple.Direction.FORWARD);
         motorPollenLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        motorPollenLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorNectarLauncher.setMode((DcMotorEx.RunMode.RUN_USING_ENCODER));
+
+        getPIDFValues();
+
+        setpollenPIDF();
 
 
 
@@ -57,11 +73,59 @@ public class Launcher {
         motorPollenLauncher.setPower(0);
     }
 
+    public void setpollenPIDF() {
+        motorPollenLauncher.setVelocityPIDFCoefficients(p,i,d,f);
+    }
+
+    public void increasePValue()
+    {
+        p = p + 1;
+        setpollenPIDF();
+    }
+
+
+    public void decreasePValue(){
+        p = p - 1;
+        setpollenPIDF();
+    }
+
+    public void increaseIValue(){
+        i = i + 1;
+        setpollenPIDF();
+    }
+
+    public void decreaseIValue(){
+        i = i - 1;
+        setpollenPIDF();
+    }
+
+    public void increaseDValue(){
+        d = d + 1;
+        setpollenPIDF();
+    }
+
+    public void decreaseDValue(){
+        d = d - 1;
+        setpollenPIDF();
+    }
+
+    public void increaseFValue(){
+        f = f + 1;
+        setpollenPIDF();
+    }
+
+    public void decreaseFValue(){
+        f = f - 1;
+        setpollenPIDF();
+    }
+
+
+
+
+
+
     public void togglePowerOrVelocity()
     {
-        if (alwaysLaunchPower)
-            return;
-
 
         if (System.currentTimeMillis() < nextToggleUpdate)
             return;
@@ -69,6 +133,15 @@ public class Launcher {
         isLaunchPower = !isLaunchPower;
 
         nextToggleUpdate = System.currentTimeMillis() + 1000; // 1 second delay
+    }
+
+    public PIDFCoefficients getPIDFValues(){
+        PIDFCoefficients values = motorPollenLauncher.getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
+        p = values.p;
+        i = values.i;
+        d = values.d;
+        f = values.f;
+        return values;
     }
 
     public boolean isLaunchPower()
@@ -181,7 +254,9 @@ public class Launcher {
         else
         {
             // New code for velocity
-            motorPollenLauncher.setVelocity(launchVelocityPollen);
+//            motorPollenLauncher.setVelocity(launchVelocityPollen);
+            motorPollenLauncher.setPower(launchPowerPollen);
+
         }
     }
 
@@ -212,6 +287,35 @@ public class Launcher {
         nectarLaunch();
         pollenLaunch();
     }
+
+
+    //Run in encoder testing
+    public double getLaunchVelocityNectar()
+        {
+            return motorNectarLauncher.getVelocity();
+        }
+
+
+        public double getLaunchVelocityPollen()
+        {
+            return motorPollenLauncher.getVelocity();
+        }
+
+
+        public double getNectarRPM()
+        {
+            return (getLaunchVelocityNectar()/-motorCPM)*60;
+        }
+
+        public double getPollenRPM()
+        {
+            return (getLaunchVelocityPollen()/motorCPM)*60;
+        }
+
+
+
+
+
 
     private void delay(long millisecondsToDelay)
     {

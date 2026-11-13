@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
-@TeleOp(name = "BioBuzz v2", group = "BioBuzz")
+@TeleOp(name = "BioBuzz v3", group = "BioBuzz")
 public class BioBuzzTeleOp extends OpMode {
     // Robot Constants
     private static final String MOTOR_NAME_NECTAR_LAUNCH = "nectarLaunch";
@@ -34,6 +35,8 @@ public class BioBuzzTeleOp extends OpMode {
     private Gate gate;
     private Intake intake;
     private Launcher launcher;
+
+    private double nextPIDFUpdate = System.currentTimeMillis();
 
     /**
      * User-defined init method
@@ -120,6 +123,61 @@ public class BioBuzzTeleOp extends OpMode {
         runtime.reset();
     }
 
+    private void updateNextPIDF()
+    {
+        nextPIDFUpdate = System.currentTimeMillis() + 200;
+    }
+
+    private void pidfControl()
+    {
+        if (System.currentTimeMillis() < nextPIDFUpdate)
+            return;
+
+        if (gamepad2.dpadUpWasPressed())
+        {
+            updateNextPIDF();
+            launcher.increasePValue();
+        }
+
+        if (gamepad2.dpadLeftWasPressed())
+        {
+            updateNextPIDF();
+            launcher.decreasePValue();
+        }
+
+
+        if (gamepad2.dpadDownWasPressed())
+        {
+        updateNextPIDF();
+        launcher.increaseIValue();
+        }
+        if (gamepad2.dpadRightWasPressed()){
+            updateNextPIDF();
+            launcher.decreaseIValue();
+        }
+        if(gamepad2.right_bumper){
+            updateNextPIDF();
+            launcher.increaseDValue();
+        }
+        if(gamepad2.left_bumper){
+            updateNextPIDF();
+            launcher.decreaseDValue();
+        }
+        if(gamepad2.yWasPressed()){
+            updateNextPIDF();
+            launcher.increaseFValue();
+        }
+        if(gamepad2.bWasPressed()){
+            updateNextPIDF();
+            launcher.decreaseFValue();
+        }
+
+}
+
+
+
+
+
     private void launchControl()
     {
         boolean isLaunchPower = launcher.isLaunchPower();
@@ -127,40 +185,67 @@ public class BioBuzzTeleOp extends OpMode {
         telemetry.addData("Nectar Velocity", launcher.getNectarVelocity());
         telemetry.addData("Pollen Velocity", launcher.getPollenVelocity());
 
+        // Print PIDF information
+        PIDFCoefficients values = launcher.getPIDFValues();
+
+        double p = values.p;
+        double i = values.i;
+        double d = values.d;
+        double f = values.f;
+
+        telemetry.addData("p values", p);
+        telemetry.addData("i values", i);
+        telemetry.addData("d values", d);
+        telemetry.addData("f values", f);
+
+
         if (gamepad2.dpad_up)
             launcher.togglePowerOrVelocity();
 
-        // Nectar Gate
-        if (gamepad2.right_bumper)
-            gate.closeNectGate();
-        else
-            gate.openNectGate();
-
-        if (gamepad2.left_bumper)
-            gate.closePolyGate();
-        else
-            gate.openPolyGate();
+//        // Nectar Gate
+//        if (gamepad2.right_bumper)
+//            gate.closeNectGate();
+//        else
+//            gate.openNectGate();
+//
+//        if (gamepad2.left_bumper)
+//            gate.closePolyGate();
+//        else
+//            gate.openPolyGate();
 
         // You have to hold the trigger to launch nectar
         if (gamepad2.right_trigger > 0.5)
+        {
             launcher.nectarLaunch();
+            launcher.pollenLaunch(); // Test
+        }
         else
+        {
             launcher.stopNectarLaunch();
+            launcher.stopPollenLaunch();
+        }
 
         // You have to hold the trigger to launch pollen
         if (gamepad2.left_trigger > 0.5)
+        {
             launcher.pollenLaunch();
+            telemetry.addData("Pollen Launch", "Launching");
+        }
         else
+        {
             launcher.stopPollenLaunch();
+            telemetry.addData("Pollen Launch", "Stopped");
 
-        if (gamepad2.y)
-            launcher.increaseNectarLaunchPower();
-        if (gamepad2.b)
-            launcher.decreaseNectarLaunchPower();
+        }
 
-        if (gamepad2.x)
+//        if (gamepad2.y)
+//            launcher.increaseNectarLaunchPower();
+//        if (gamepad2.b)
+//            launcher.decreaseNectarLaunchPower();
+
+        if (gamepad2.xWasPressed())
             launcher.increasePollenLaunchPower();
-        if (gamepad2.a)
+        if (gamepad2.aWasPressed())
             launcher.decreasePollenLaunchPower();
 
         double nectarLaunchPower = launcher.getLaunchPowerNectar();
@@ -168,6 +253,8 @@ public class BioBuzzTeleOp extends OpMode {
 
         telemetry.addData("Nectar Launch Power", nectarLaunchPower);
         telemetry.addData("Pollen Launch Power", pollenLaunchPower);
+        telemetry.addData("Nectar RPM", launcher.getNectarRPM());
+        telemetry.addData("Pollen RPM", launcher.getPollenRPM());
 
 
     }
