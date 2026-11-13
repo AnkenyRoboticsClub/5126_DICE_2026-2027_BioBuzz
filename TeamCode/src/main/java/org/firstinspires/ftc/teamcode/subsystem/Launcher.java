@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Launcher {
 
     // Constants
-    private final double LAUNCH_POWER_INCREMENT = 0.1;
+    private final double LAUNCH_POWER_INCREMENT = 0.01;
 
     // The Launcher uses two DC Motors
     private DcMotor motorPollenLauncher;
@@ -60,7 +60,7 @@ public class Launcher {
         if (launchPowerNectar > 1)
             launchPowerNectar = 1;
 
-        nextNectarUpdate = System.currentTimeMillis() + 1000; // 1 second delay
+        nextNectarUpdate = System.currentTimeMillis() + 200; // 200 millisecond delay
 
         return launchPowerNectar;
     }
@@ -77,7 +77,7 @@ public class Launcher {
         if (launchPowerNectar < 0)
             launchPowerNectar = 0;
 
-        nextNectarUpdate = System.currentTimeMillis() + 1000; // 1 second delay
+        nextNectarUpdate = System.currentTimeMillis() + 200; // 200 millissecond delay
 
         return launchPowerNectar;
     }
