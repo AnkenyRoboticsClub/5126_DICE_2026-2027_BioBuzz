@@ -38,6 +38,7 @@ public class Drive {
 
     public void drive(double forward, double strafe, double rotate)
     {
+        rotate = rotate * -1;
 
         // This calculates the power needed for each wheel based on the amount of forward,
         // strafe right, and rotate
