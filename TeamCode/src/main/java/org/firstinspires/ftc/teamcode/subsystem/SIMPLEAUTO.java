@@ -48,28 +48,15 @@ public class SIMPLEAUTO extends OpMode {
     }
 
     @Override
-    public void start() {
+    public void loop() {
 
-        drive.drive(-0.3, 0, 0);
+        drive.drive(0.3, 0, 0);
 
         delay(500);
 
-        drive.drive(0, 0, -0.3);
+        drive.drive(0, 0, 0);
 
-        delay(1000);
-
-        drive.drive(-0.3,0,0);
-
-        delay(1000);
-
-        drive.drive(0,0,0);
-
-    }
-
-    @Override
-    public void loop() {
-
-
+        delay(5000000);
     }
 
 }
