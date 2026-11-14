@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "DRIVEAUTO", group = "AUTODRIVE")
+@TeleOp(name = "DRIVETEST", group = "DRIVETEST")
 public class DRIVEAUTO extends OpMode {
 
 
@@ -27,6 +27,8 @@ public class DRIVEAUTO extends OpMode {
 
     }
 
+    //This is a method to establish a delay-like code.
+
     private void delay(long millisecondsToDelay)
     {
         ElapsedTime timer = new ElapsedTime();
@@ -39,6 +41,8 @@ public class DRIVEAUTO extends OpMode {
         }
 
     }
+
+    //This is the test code with pre-commands to tell the robot where to move and end.
 
     @Override
     public void start() {
