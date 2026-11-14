@@ -38,7 +38,6 @@ public class Drive {
 
     public void drive(double forward, double strafe, double rotate)
     {
-        rotate = rotate * -1;
 
         // This calculates the power needed for each wheel based on the amount of forward,
         // strafe right, and rotate
@@ -62,7 +61,7 @@ public class Drive {
     public void drive(Gamepad gamepad1) {
         double forward = gamepad1.right_stick_y * -1;
         double strafe = gamepad1.left_stick_x;
-        double rotate = gamepad1.right_stick_x;
+        double rotate = gamepad1.right_stick_x * -1;
 
         drive(forward, strafe, rotate);
     }
