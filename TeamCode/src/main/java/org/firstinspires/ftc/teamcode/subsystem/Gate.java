@@ -7,10 +7,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Gate {
 
-    private static final double POLLEN_GATE_CLOSED = 0;
-    private static final double POLLEN_GATE_OPEN = 0.35;
-    private static final double NECTAR_GATE_CLOSED = 0.35;
-    private static final double NECTAR_GATE_OPEN = 0;
+    private static final double POLLEN_GATE_CLOSED = 0.35;
+    private static final double POLLEN_GATE_OPEN = 0;
+    private static final double NECTAR_GATE_CLOSED = 0;
+    private static final double NECTAR_GATE_OPEN = 0.35;
 
 
     private Servo nectarGate;

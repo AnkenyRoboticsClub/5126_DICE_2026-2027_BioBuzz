@@ -2,16 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.subsystem.Drive;
 import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
-@TeleOp(name = "BioBuzz v2", group = "BioBuzz")
+@TeleOp(name = "BioBuzz Before Third Meet", group = "BioBuzz")
 public class BioBuzzTeleOp extends OpMode {
     // Robot Constants
     private static final String MOTOR_NAME_NECTAR_LAUNCH = "nectarLaunch";
@@ -124,14 +122,14 @@ public class BioBuzzTeleOp extends OpMode {
     {
         // Nectar Gate
         if (gamepad2.right_bumper)
-            gate.closeNectGate();
-        else
             gate.openNectGate();
+        else
+            gate.closeNectGate();
 
         if (gamepad2.left_bumper)
-            gate.closePolyGate();
-        else
             gate.openPolyGate();
+        else
+            gate.closePolyGate();
 
         // You have to hold the trigger to launch nectar
         if (gamepad2.right_trigger > 0.5)
@@ -155,11 +153,16 @@ public class BioBuzzTeleOp extends OpMode {
         if (gamepad2.a)
             launcher.decreasePollenLaunchPower();
 
-        double nectarLaunchPower = launcher.getLaunchPowerNectar();
-        double pollenLaunchPower = launcher.getLaunchPowerPollen();
+        double nectarLaunchPower = launcher.getTargetRpmNectar();
+        double pollenLaunchPower = launcher.getTargetRpmPollen();
+        double NectarlaunchRpm = launcher.getActualNectarRpm();
+        double PollenLaunchRpm = launcher.getActualPollenRpm();
 
-        telemetry.addData("Nectar Launch Power", nectarLaunchPower);
-        telemetry.addData("Pollen Launch Power", pollenLaunchPower);
+        telemetry.addData("Nectar Target RPM", nectarLaunchPower);
+        telemetry.addData("Pollen Target RPM", pollenLaunchPower);
+        telemetry.addData("Actual Nectar Rpm", NectarlaunchRpm);
+        telemetry.addData("Actual Pollen Rpm", PollenLaunchRpm);
+
 
 
     }
@@ -194,6 +197,7 @@ public class BioBuzzTeleOp extends OpMode {
         telemetry.addData("Pollen Gate Position", gate.getPollenGatePosition());
 
         telemetry.update();
+
     }
 
     /*

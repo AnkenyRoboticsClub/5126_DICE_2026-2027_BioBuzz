@@ -86,7 +86,7 @@ public class UtilityTestHardware extends OpMode {
     public void loop() {
         if (deviceList.isEmpty()){
             telemetry.addData("No Devices", "Found");
-            return;
+
         }
         telemetry.addData("Use Dpad Left/Right", "to select device");
         if (gamepad1.dpadRightWasPressed()) {
@@ -135,6 +135,7 @@ public class UtilityTestHardware extends OpMode {
         } catch (Exception e) {
             telemetry.addData("Exception", e.toString());
         }
+
     }
 
     void testMotor(DcMotor motor) {
