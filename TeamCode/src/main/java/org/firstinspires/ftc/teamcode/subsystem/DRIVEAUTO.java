@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "DRIVETEST", group = "DRIVETEST")
+@TeleOp(name = "DRIVEAUTOTEST", group = "DRIVEAUTOTEST")
 public class DRIVEAUTO extends OpMode {
 
 
@@ -12,8 +12,6 @@ public class DRIVEAUTO extends OpMode {
     private static final String MOTOR_NAME_FRONT_RIGHT = "frontRight";
     private static final String MOTOR_NAME_BACK_LEFT = "backLeft";
     private static final String MOTOR_NAME_BACK_RIGHT = "backRight";
-
-    private ElapsedTime runtime = new ElapsedTime();
 
     private Drive drive;
 

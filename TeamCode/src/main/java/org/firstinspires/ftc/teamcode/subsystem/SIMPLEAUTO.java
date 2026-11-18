@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystem;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
-@TeleOp(name = "SIMPLEAUTO", group = "AUTODRIVE")
+@Autonomous(name = "DRIVEPARKAUTO", group = "DRIVEPARKAUTO")
 public class SIMPLEAUTO extends OpMode {
 
 
@@ -19,8 +20,6 @@ public class SIMPLEAUTO extends OpMode {
     private static final String MOTOR_NAME_FRONT_RIGHT = "frontRight";
     private static final String MOTOR_NAME_BACK_LEFT = "backLeft";
     private static final String MOTOR_NAME_BACK_RIGHT = "backRight";
-
-    private ElapsedTime runtime = new ElapsedTime();
 
     private Drive drive;
 
