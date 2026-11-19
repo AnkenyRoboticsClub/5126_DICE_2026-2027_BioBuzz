@@ -43,10 +43,10 @@ public class LimeTest extends OpMode {
         BR = hardwareMap.get(DcMotor.class, "backRight");
         BL = hardwareMap.get(DcMotor.class, "backLeft");
 
-        FR.setDirection(DcMotorSimple.Direction.FORWARD);
-        FL.setDirection(DcMotorSimple.Direction.FORWARD);
-        BR.setDirection(DcMotorSimple.Direction.FORWARD);
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
+        FR.setDirection(DcMotorSimple.Direction.REVERSE);
+        FL.setDirection(DcMotorSimple.Direction.REVERSE);
+        BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        BL.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
 
@@ -71,10 +71,10 @@ public class LimeTest extends OpMode {
             yAxis = llResult.getTy();
             aAxis = llResult.getTa();
 
-            FR.setPower(-xAxis / 10);
-            FL.setPower(xAxis / 10);
-            BR.setPower(-xAxis / 10);
-            BL.setPower(xAxis / 10);
+            FR.setPower(-xAxis / 20);
+            FL.setPower(xAxis / 20);
+            BR.setPower(-xAxis / 20);
+            BL.setPower(xAxis / 20);
 
 
             telemetry.addData("Target X", xAxis);
