@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -30,7 +31,6 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String THELIME = "limeLight";
     private static final String IMU = "imu";
 
-
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare the robot's subsystems
@@ -39,6 +39,9 @@ public class BioBuzzTeleOp extends OpMode {
     private Intake intake;
     private Launcher launcher;
     private LimeLight lime;
+
+
+
 
     /**
      * User-defined init method
@@ -67,49 +70,49 @@ public class BioBuzzTeleOp extends OpMode {
 
     }
 
-    private void autoLaunchNectar()
-    {
-        // Turn on nectar launch motor
-        launcher.nectarLaunch();
+ // private void autoLaunchNectar()
+ // {
+ //     // Turn on nectar launch motor
+ //     launcher.nectarLaunch();
 
-        // Wait 1 second (for launch motor to get to full power)
-        delay(1000);
+ //     // Wait 1 second (for launch motor to get to full power)
+ //     delay(1000);
 
-        // Open nectar gate
-        gate.openNectGate();
+ //     // Open nectar gate
+ //     gate.openNectGate();
 
-        // Wait 4 seconds (for all nectar to finish launching)
-        delay(4000);
+ //     // Wait 4 seconds (for all nectar to finish launching)
+ //     delay(4000);
 
-        // Close gate
-        gate.closeNectGate();
+ //     // Close gate
+ //     gate.closeNectGate();
 
-        // Turn off nectar launch motor
-        launcher.stopNectarLaunch();
-    }
+ //     // Turn off nectar launch motor
+ //     launcher.stopNectarLaunch();
+ // }
 
-    private void autoLaunchPollen( )
-    {
-        // Turn on nectar launch motor
-        launcher.nectarLaunch();
+ // private void autoLaunchPollen( )
+ // {
+ //     // Turn on nectar launch motor
+ //     launcher.nectarLaunch();
 
-        // Wait 1 second (for launch motor to get to full power)
-        delay(1000);
+ //     // Wait 1 second (for launch motor to get to full power)
+ //     delay(1000);
 
-        // Open nectar gate
-        gate.openPolyGate();
+ //     // Open nectar gate
+ //     gate.openPolyGate();
 
-        // Wait 4 seconds (for all nectar to finish launching)
-        delay(4000);
+ //     // Wait 4 seconds (for all nectar to finish launching)
+ //     delay(4000);
 
-        // Close gate
-        gate.closePolyGate();
+ //     // Close gate
+ //     gate.closePolyGate();
 
-        // Turn off nectar launch motor
-        launcher.stopPollenLaunch();
+ //     // Turn off nectar launch motor
+ //     launcher.stopPollenLaunch();
 
 
-    }
+ // }
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit START
@@ -186,17 +189,15 @@ public class BioBuzzTeleOp extends OpMode {
     }
 
     private void LimeCM () {
+
          if (gamepad2.dpad_up) {
 
-             lime.autoAim();
-            double xAxis = llResult.getTx();
-            double yAxis = llResult.getTy();
-            double aAxis = llResult.getTa();
+             lime.autoAim(drive);
 
-             MOTOR_NAME_FRONT_RIGHT.setPower(-xAxis / 20);
-             MOTOR_NAME_FRONT_LEFT.setPower(xAxis / 20);
-             MOTOR_NAME_BACK_RIGHT.setPower(-xAxis / 20);
-             MOTOR_NAME_BACK_LEFT.setPower(xAxis / 20);
+
+         } else {
+
+
 
          }
 
@@ -212,23 +213,23 @@ public class BioBuzzTeleOp extends OpMode {
 
         launchControl();
         intakeControl();
-        LimeCM();
-        drive.drive(gamepad1);
 
+        if (gamepad2.dpad_up) {
+            lime.autoAim(drive);
+        } else {
+            drive.drive(gamepad1);
+        }
 
         telemetry.addData("Is Nectar Gate Open", gate.isNectarGateOpen());
         telemetry.addData("Nectar Gate Position", gate.getNectarGatePosition());
         telemetry.addData("Is Pollen Gate Open", gate.isPollenGateOpen());
         telemetry.addData("Pollen Gate Position", gate.getPollenGatePosition());
 
-        telemetry.addData("Target X", xAxis);
-        telemetry.addData("Target Y", yAxis);
-        telemetry.addData("Target Area", aAxis);
-        telemetry.addData("BotePose", botPose.toString());
-        telemetry.addData("Yaw", botPose.getOrientation().getYaw());
+        lime.updateTelemetry(telemetry);
 
         telemetry.update();
     }
+
 
     /*
      * Code to run ONCE after the driver hits STOP
