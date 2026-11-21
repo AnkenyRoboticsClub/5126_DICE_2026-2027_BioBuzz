@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Drive;
 import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
+import org.firstinspires.ftc.teamcode.subsystem.LimeLight;
 
 @TeleOp(name = "BioBuzz v2", group = "BioBuzz")
 public class BioBuzzTeleOp extends OpMode {
@@ -26,6 +27,9 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String MOTOR_NAME_FRONT_RIGHT = "frontRight";
     private static final String MOTOR_NAME_BACK_LEFT = "backLeft";
     private static final String MOTOR_NAME_BACK_RIGHT = "backRight";
+    private static final String THELIME = "limeLight";
+    private static final String IMU = "imu";
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -34,6 +38,7 @@ public class BioBuzzTeleOp extends OpMode {
     private Gate gate;
     private Intake intake;
     private Launcher launcher;
+    private LimeLight lime;
 
     /**
      * User-defined init method
@@ -46,6 +51,7 @@ public class BioBuzzTeleOp extends OpMode {
         gate = new Gate(hardwareMap, GATE_NAME_NECTAR, GATE_NAME_POLLEN);
         intake = new Intake(hardwareMap, MOTOR_NAME_INTAKE);
         launcher = new Launcher(hardwareMap, MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
+        lime = new LimeLight(hardwareMap, THELIME, IMU);
     }
 
     private void delay(long millisecondsToDelay)
@@ -118,6 +124,7 @@ public class BioBuzzTeleOp extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+        lime.camBoot();
     }
 
     private void launchControl()
@@ -188,10 +195,18 @@ public class BioBuzzTeleOp extends OpMode {
         intakeControl();
         drive.drive(gamepad1);
 
+
+
         telemetry.addData("Is Nectar Gate Open", gate.isNectarGateOpen());
         telemetry.addData("Nectar Gate Position", gate.getNectarGatePosition());
         telemetry.addData("Is Pollen Gate Open", gate.isPollenGateOpen());
         telemetry.addData("Pollen Gate Position", gate.getPollenGatePosition());
+
+        telemetry.addData("Target X", xAxis);
+        telemetry.addData("Target Y", yAxis);
+        telemetry.addData("Target Area", aAxis);
+        telemetry.addData("BotePose", botPose.toString());
+        telemetry.addData("Yaw", botPose.getOrientation().getYaw());
 
         telemetry.update();
     }
