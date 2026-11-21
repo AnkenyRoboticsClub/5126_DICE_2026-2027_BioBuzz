@@ -62,11 +62,10 @@ public class LimeLight {
             //BR.setDirection(DcMotorSimple.Direction.REVERSE);
             //BL.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            FR.setPower(-xAxis / 20);
-            FL.setPower(xAxis / 20);
-            BR.setPower(-xAxis / 20);
-            BL.setPower(xAxis / 20);
-
+           //FR.setPower(-xAxis / 20);
+           //FL.setPower(xAxis / 20);
+           //BR.setPower(-xAxis / 20);
+           //BL.setPower(xAxis / 20);
 
             telemetry.addData("Target X", xAxis);
             telemetry.addData("Target Y", yAxis);
