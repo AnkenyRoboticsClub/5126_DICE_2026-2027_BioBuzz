@@ -46,16 +46,14 @@ public class LimeLight {
 
     }
 
-    public void autoAim(double xAxis, double yAxis, double aAxis) {
+    public void autoAim() {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         limeCam.updateRobotOrientation(orientation.getYaw());
         LLResult llResult = limeCam.getLatestResult();
         if (llResult != null && llResult.isValid()) {
             Pose3D botPose = llResult.getBotpose_MT2();
 
-             xAxis = llResult.getTx();
-             yAxis = llResult.getTy();
-             aAxis = llResult.getTa();
+
 
             //FR.setDirection(DcMotorSimple.Direction.REVERSE);
             //FL.setDirection(DcMotorSimple.Direction.REVERSE);

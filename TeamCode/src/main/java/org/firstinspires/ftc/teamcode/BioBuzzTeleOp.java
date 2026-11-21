@@ -188,6 +188,15 @@ public class BioBuzzTeleOp extends OpMode {
     private void LimeCM () {
          if (gamepad2.dpad_up) {
 
+             lime.autoAim();
+            double xAxis = llResult.getTx();
+            double yAxis = llResult.getTy();
+            double aAxis = llResult.getTa();
+
+             MOTOR_NAME_FRONT_RIGHT.setPower(-xAxis / 20);
+             MOTOR_NAME_FRONT_LEFT.setPower(xAxis / 20);
+             MOTOR_NAME_BACK_RIGHT.setPower(-xAxis / 20);
+             MOTOR_NAME_BACK_LEFT.setPower(xAxis / 20);
 
          }
 
