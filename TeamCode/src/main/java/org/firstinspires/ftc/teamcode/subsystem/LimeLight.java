@@ -19,10 +19,12 @@ public class LimeLight {
     private Limelight3A limeCam;
     private IMU imu;
 
+    private static final String MOTOR_NAME_FRONT_LEFT = "frontLeft";
+    private static final String MOTOR_NAME_FRONT_RIGHT = "frontRight";
+    private static final String MOTOR_NAME_BACK_LEFT = "backLeft";
+    private static final String MOTOR_NAME_BACK_RIGHT = "backRight";
 
-
-
-    public void LIMEMAP(HardwareMap hardwareMap, String THELIME, String IMU) {
+    public LimeLight(HardwareMap hardwareMap, String THELIME, String IMU) {
 
         limeCam = hardwareMap.get(Limelight3A.class, THELIME);
         limeCam.pipelineSwitch(8);
@@ -31,7 +33,11 @@ public class LimeLight {
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
         imu.initialize(new IMU.Parameters(revHubOrientationOnRobot));
 
-    };
+
+
+    }
+
+    ;
 
 
     public void camBoot() {
@@ -40,16 +46,21 @@ public class LimeLight {
 
     }
 
-    public void autoAim(Gamepad gamepad2) {
-        if (gamepad2.dpad_up) { YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+    public void autoAim(double xAxis, double yAxis, double aAxis) {
+        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         limeCam.updateRobotOrientation(orientation.getYaw());
         LLResult llResult = limeCam.getLatestResult();
         if (llResult != null && llResult.isValid()) {
             Pose3D botPose = llResult.getBotpose_MT2();
 
-           double xAxis = llResult.getTx();
-           double yAxis = llResult.getTy();
-           double aAxis = llResult.getTa();
+             xAxis = llResult.getTx();
+             yAxis = llResult.getTy();
+             aAxis = llResult.getTa();
+
+            //FR.setDirection(DcMotorSimple.Direction.REVERSE);
+            //FL.setDirection(DcMotorSimple.Direction.REVERSE);
+            //BR.setDirection(DcMotorSimple.Direction.REVERSE);
+            //BL.setDirection(DcMotorSimple.Direction.FORWARD);
 
             FR.setPower(-xAxis / 20);
             FL.setPower(xAxis / 20);
@@ -63,15 +74,14 @@ public class LimeLight {
             telemetry.addData("BotePose", botPose.toString());
             telemetry.addData("Yaw", botPose.getOrientation().getYaw());
 
-        }
-        else {
+        } else {
             telemetry.addData("Limelight", "Nothing found");
         }
 
-        telemetry.update(); }
+        telemetry.update();
     }
 
-    public void
+
 
 
 }

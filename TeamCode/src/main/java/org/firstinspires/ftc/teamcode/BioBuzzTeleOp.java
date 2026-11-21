@@ -185,6 +185,16 @@ public class BioBuzzTeleOp extends OpMode {
             intake.stopIntake();
     }
 
+    private void LimeCM () {
+         if (gamepad2.dpad_up) {
+
+
+         }
+
+
+
+    }
+
     /*
      * Code to run REPEATEDLY after the driver hits START but before they hit STOP
      */
@@ -193,8 +203,8 @@ public class BioBuzzTeleOp extends OpMode {
 
         launchControl();
         intakeControl();
+        LimeCM();
         drive.drive(gamepad1);
-
 
 
         telemetry.addData("Is Nectar Gate Open", gate.isNectarGateOpen());

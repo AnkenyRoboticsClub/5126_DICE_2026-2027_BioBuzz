@@ -60,8 +60,8 @@ public class Drive {
 
     public void drive(Gamepad gamepad1) {
         double forward = gamepad1.right_stick_y * -1;
-        double strafe = gamepad1.left_stick_x;
-        double rotate = gamepad1.right_stick_x;
+        double strafe = gamepad1.left_stick_x * -1;
+        double rotate = gamepad1.right_stick_x * -1;
 
         drive(forward, strafe, rotate);
     }
