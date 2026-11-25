@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
 @Disabled
 @Autonomous(name="AutoGate", group="BioBuzz")
-public class AutoGate extends OpMode {
+public class OLDAUTO extends OpMode {
     // Robot Constants
     private static final String MOTOR_NAME_NECTAR_LAUNCH = "nectarLaunch";
     private static final String MOTOR_NAME_POLLEN_LAUNCH = "pollenLaunch";
