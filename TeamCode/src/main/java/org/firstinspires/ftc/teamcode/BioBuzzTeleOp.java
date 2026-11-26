@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.subsystem.Drive;
+import org.firstinspires.ftc.teamcode.subsystem.Flower;
 import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
@@ -26,6 +27,7 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String MOTOR_NAME_FRONT_RIGHT = "frontRight";
     private static final String MOTOR_NAME_BACK_LEFT = "backLeft";
     private static final String MOTOR_NAME_BACK_RIGHT = "backRight";
+    private static final String flowerIntake = "flower";
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -34,6 +36,7 @@ public class BioBuzzTeleOp extends OpMode {
     private Gate gate;
     private Intake intake;
     private Launcher launcher;
+    private Flower flower;
 
     /**
      * User-defined init method
@@ -46,6 +49,7 @@ public class BioBuzzTeleOp extends OpMode {
         gate = new Gate(hardwareMap, GATE_NAME_NECTAR, GATE_NAME_POLLEN);
         intake = new Intake(hardwareMap, MOTOR_NAME_INTAKE);
         launcher = new Launcher(hardwareMap, MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
+        flower = new Flower(hardwareMap, flowerIntake);
     }
 
     private void delay(long millisecondsToDelay)
@@ -173,9 +177,22 @@ public class BioBuzzTeleOp extends OpMode {
             intake.outTake();
         }
 
-
-            else
+        else
             intake.stopIntake();
+
+
+        if (gamepad1.right_trigger)
+
+            Flower.closeFlowerGate();
+
+        else
+            Flower.openFlowerGate();
+
+
+
+    }
+
+
     }
 
     /*
@@ -187,6 +204,14 @@ public class BioBuzzTeleOp extends OpMode {
         launchControl();
         intakeControl();
         drive.drive(gamepad1);
+        flower.ToggleFlower {
+
+
+
+    }
+
+
+
 
         telemetry.addData("Is Nectar Gate Open", gate.isNectarGateOpen());
         telemetry.addData("Nectar Gate Position", gate.getNectarGatePosition());
@@ -194,7 +219,6 @@ public class BioBuzzTeleOp extends OpMode {
         telemetry.addData("Pollen Gate Position", gate.getPollenGatePosition());
 
         telemetry.update();
-    }
 
     /*
      * Code to run ONCE after the driver hits STOP
