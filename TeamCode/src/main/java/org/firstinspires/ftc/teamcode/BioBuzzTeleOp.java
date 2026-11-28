@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.subsystem.Drive;
+import org.firstinspires.ftc.teamcode.subsystem.Flower;
 import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
@@ -32,6 +33,7 @@ public class BioBuzzTeleOp extends OpMode {
     private Gate gate;
     private Intake intake;
     private Launcher launcher;
+    private Flower flower;
 
     /**
      * User-defined init method
