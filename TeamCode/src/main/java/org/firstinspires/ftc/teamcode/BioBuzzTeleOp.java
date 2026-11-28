@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.subsystem.Drive;
+import org.firstinspires.ftc.teamcode.subsystem.Flower;
 import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
@@ -185,7 +186,7 @@ public class BioBuzzTeleOp extends OpMode {
             intake.stopIntake();
 
 
-        if (gamepad1.right_trigger)
+        if (gamepad1.right_trigger > 0.5)
 
             flower.closeFlowerGate();
 
