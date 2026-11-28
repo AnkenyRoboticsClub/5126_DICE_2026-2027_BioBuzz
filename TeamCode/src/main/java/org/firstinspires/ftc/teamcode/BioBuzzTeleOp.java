@@ -25,6 +25,7 @@ public class BioBuzzTeleOp extends OpMode {
     private static final String MOTOR_NAME_FRONT_RIGHT = "frontRight";
     private static final String MOTOR_NAME_BACK_LEFT = "backLeft";
     private static final String MOTOR_NAME_BACK_RIGHT = "backRight";
+    private static final String flowerIntake = "flower";
 
     private ElapsedTime runtime = new ElapsedTime();
 
