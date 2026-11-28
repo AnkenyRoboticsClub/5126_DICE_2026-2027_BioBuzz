@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class Gate {
+    public class Gate {
 
     private static final double POLLEN_GATE_CLOSED = 0.35;
     private static final double POLLEN_GATE_OPEN = 0;

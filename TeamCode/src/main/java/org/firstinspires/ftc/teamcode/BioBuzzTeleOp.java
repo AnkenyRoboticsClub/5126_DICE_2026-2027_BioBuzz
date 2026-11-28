@@ -2,15 +2,16 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.subsystem.Drive;
-import org.firstinspires.ftc.teamcode.subsystem.Flower;
 import org.firstinspires.ftc.teamcode.subsystem.Gate;
 import org.firstinspires.ftc.teamcode.subsystem.Intake;
 import org.firstinspires.ftc.teamcode.subsystem.Launcher;
 
-@TeleOp(name = "BioBuzz Before Third Meet", group = "BioBuzz")
+@TeleOp(name = "BioBuzz v2", group = "BioBuzz")
 public class BioBuzzTeleOp extends OpMode {
     // Robot Constants
     private static final String MOTOR_NAME_NECTAR_LAUNCH = "nectarLaunch";
@@ -47,6 +48,7 @@ public class BioBuzzTeleOp extends OpMode {
         gate = new Gate(hardwareMap, GATE_NAME_NECTAR, GATE_NAME_POLLEN);
         intake = new Intake(hardwareMap, MOTOR_NAME_INTAKE);
         launcher = new Launcher(hardwareMap, MOTOR_NAME_NECTAR_LAUNCH, MOTOR_NAME_POLLEN_LAUNCH);
+        flower = new Flower(hardwareMap, flowerIntake);
     }
 
     private void delay(long millisecondsToDelay)
@@ -125,14 +127,14 @@ public class BioBuzzTeleOp extends OpMode {
     {
         // Nectar Gate
         if (gamepad2.right_bumper)
-            gate.openNectGate();
-        else
             gate.closeNectGate();
+        else
+            gate.openNectGate();
 
         if (gamepad2.left_bumper)
-            gate.openPolyGate();
-        else
             gate.closePolyGate();
+        else
+            gate.openPolyGate();
 
         // You have to hold the trigger to launch nectar
         if (gamepad2.right_trigger > 0.5)
@@ -179,9 +181,18 @@ public class BioBuzzTeleOp extends OpMode {
             intake.outTake();
         }
 
-
-            else
+        else
             intake.stopIntake();
+
+
+        if (gamepad1.right_trigger)
+
+            flower.closeFlowerGate();
+
+        else
+            flower.openFlowerGate();
+
+
     }
 
     /*
@@ -193,6 +204,14 @@ public class BioBuzzTeleOp extends OpMode {
         launchControl();
         intakeControl();
         drive.drive(gamepad1);
+        // flower.ToggleFlower {
+
+
+
+
+
+
+
 
         telemetry.addData("Is Nectar Gate Open", gate.isNectarGateOpen());
         telemetry.addData("Nectar Gate Position", gate.getNectarGatePosition());
@@ -200,7 +219,6 @@ public class BioBuzzTeleOp extends OpMode {
         telemetry.addData("Pollen Gate Position", gate.getPollenGatePosition());
 
         telemetry.update();
-
     }
 
     /*
